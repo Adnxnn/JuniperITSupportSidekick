@@ -1,0 +1,318 @@
+[
+  {
+    "id": "verification",
+    "title": "Verify the user",
+    "platform": "",
+    "aliases": [
+      "verify",
+      "validation",
+      "identity",
+      "cybersecurity questions",
+      "before proceeding"
+    ],
+    "source": "Recording 1, 0:14–0:54",
+    "evidence": "We learned about user validation process with the cybersecurity questions for the call as well as the chat. So that would be the manager's name, employee ID, and work location. ... These cyber security questions would apply for the AD password reset, MAC recovery ... BitLocker, MFA reset.",
+    "prerequisites": [
+      "User validation applies to calls and chats for AD password resets, Mac recovery keys, BitLocker and MFA resets."
+    ],
+    "verification": [
+      "Verify the user using the manager’s name, employee ID and work location."
+    ],
+    "steps": [],
+    "failureHandling": [],
+    "nextAction": [],
+    "notes": [
+      "The alternative “HP ID” and directory wording is unclear in the supplied transcript; confirm that alternate validation route with your TL."
+    ]
+  },
+  {
+    "id": "ad-password",
+    "title": "Juniper network password reset",
+    "platform": "AD Manager",
+    "aliases": [
+      "network password",
+      "ad password",
+      "juniper password",
+      "forgot password",
+      "laptop login",
+      "reset password",
+      "password reset"
+    ],
+    "source": "Recording 3, 31:55–32:29; Recording 1, 0:14–0:54",
+    "evidence": "If he’s having issues with his Juniper password ... They sent through the AD Manager. [Trainer:] Yeah.",
+    "prerequisites": [],
+    "verification": [
+      "Verify the user using the manager’s name, employee ID and work location."
+    ],
+    "steps": [],
+    "failureHandling": [],
+    "nextAction": [
+      "Check with your TL/team for the missing reset procedure before proceeding."
+    ],
+    "notes": [
+      "AD Manager is identified as the tool. The exact password-reset navigation and steps are not included in the supplied excerpts."
+    ]
+  },
+  {
+    "id": "mac-key",
+    "title": "Mac personal recovery key",
+    "platform": "",
+    "aliases": [
+      "mac recovery",
+      "mac key",
+      "mac password",
+      "local mac",
+      "filevault",
+      "personal recovery key"
+    ],
+    "source": "Recording 1, 45:53–47:53",
+    "evidence": "Not the complete e-mail ID, just the user ID with the star symbol. ... under the inventory ... Click on disk encryption. ... personal recovery key ... if it’s like unknown or there is no recovery key, that’s when we escalate it to the next level support.",
+    "prerequisites": [],
+    "verification": [
+      "Verify the user using the manager’s name, employee ID and work location."
+    ],
+    "steps": [
+      "In the demonstrated device-management portal, search using the user ID with a star symbol, not the complete email address.",
+      "Under Inventory, scroll to Disk Encryption.",
+      "Locate the Personal Recovery Key."
+    ],
+    "failureHandling": [
+      "If the personal recovery key is missing or shown as unknown, escalate to next-level support."
+    ],
+    "nextAction": [],
+    "notes": [
+      "The portal name, star-symbol placement, exact escalation group and approved key-sharing channel are not provided. Confirm these with your TL before using this partial procedure."
+    ]
+  },
+  {
+    "id": "bitlocker",
+    "title": "BitLocker recovery key",
+    "platform": "Microsoft Intune",
+    "aliases": [
+      "bitlocker",
+      "bit locker",
+      "windows recovery key"
+    ],
+    "source": "Recording 3, 1:31–1:38; Recording 1, 0:14–0:54",
+    "evidence": "Yesterday we learned about the Intune backlog recovery key. So, how we can generate the bit log recovery key from the Intune portal?",
+    "prerequisites": [],
+    "verification": [
+      "Verify the user using the manager’s name, employee ID and work location."
+    ],
+    "steps": [],
+    "failureHandling": [],
+    "nextAction": [
+      "Check with your TL/team for the missing Intune recovery-key steps."
+    ],
+    "notes": [
+      "The training identifies Intune as the portal. The retrieval walkthrough and procedure for a missing BitLocker key are absent from the supplied excerpts."
+    ]
+  },
+  {
+    "id": "mfa",
+    "title": "Reset MFA registration",
+    "platform": "Azure Portal",
+    "aliases": [
+      "mfa",
+      "authenticator",
+      "authentication",
+      "verification code",
+      "revoke",
+      "re-register",
+      "passkey"
+    ],
+    "source": "Recording 3, 19:48–25:57; Recording 1, 0:14–0:54",
+    "evidence": "Log into the Azure portal ... users, then all users ... select authentication methods ... require re-register and revoke MFA sessions. ... the password reset thing, we do not use this. ... after we delete the passkey or the e-mail ... re-register ... close the link and open it again.",
+    "prerequisites": [
+      "Confirm the user knows their network password. If they have forgotten it and also cannot receive authenticator codes, resolve the password issue first."
+    ],
+    "verification": [
+      "Verify the user using the manager’s name, employee ID and work location."
+    ],
+    "steps": [
+      "Open Azure Portal and go to Users → All users.",
+      "Select the user and open Authentication methods.",
+      "Require MFA re-registration and revoke MFA sessions. Do not use the password-reset option in this MFA workflow."
+    ],
+    "failureHandling": [
+      "If setup still fails in the demonstrated scenario, check for remaining passkeys or email methods. Use the three-dot menu to delete the remaining method identified in that scenario.",
+      "Require MFA re-registration again, then ask the user to close and reopen the setup link and retry.",
+      "Try another browser, or copy and paste the setup link into the browser.",
+      "If the problem persists, document the attempts and route the issue to the IAM/infra support team; confirm the exact assignment-group name with your TL."
+    ],
+    "nextAction": [],
+    "notes": [
+      "The setup URL and escalation email spellings are unclear in the transcript and are not supplied here."
+    ]
+  },
+  {
+    "id": "iphone",
+    "title": "Locked iPhone or invalid passcode",
+    "platform": "Microsoft Intune",
+    "aliases": [
+      "iphone",
+      "phone locked",
+      "phone passcode",
+      "mobile devices",
+      "mobile device",
+      "ios",
+      "phone password",
+      "intune compliance"
+    ],
+    "source": "Recording 3, 26:31–32:29",
+    "evidence": "We need to do that from the Intune portal ... probe the user ... go to devices ... Apple Mobile ... click on the iPhone device name ... remove passcode ... device compliance ... User would be prompted to reset the passcode from his end.",
+    "prerequisites": [],
+    "verification": [
+      "Clarify whether the issue is the phone’s screen passcode or the Juniper network password, and confirm which device the user is using."
+    ],
+    "steps": [
+      "Open Intune admin center → Devices → Apple Mobile.",
+      "Find and select the user’s registered iPhone device name.",
+      "For a locked phone, use Remove passcode if that action is available.",
+      "For an invalid-passcode error, open Device compliance and check the passcode compliance status and errors. If it is non-compliant, the training describes using Remove passcode.",
+      "Ask the user to set a new passcode when prompted on the device."
+    ],
+    "failureHandling": [],
+    "nextAction": [],
+    "notes": [
+      "The excerpt does not provide a procedure for Android devices or for a missing Remove passcode action."
+    ]
+  },
+  {
+    "id": "vpn",
+    "title": "Contractor VPN access",
+    "platform": "My Groups",
+    "aliases": [
+      "vpn",
+      "my groups",
+      "contractor",
+      "standard role",
+      "dedicated role",
+      "external eud",
+      "juniper eud",
+      "access vpn"
+    ],
+    "source": "Recording 4, 1:30–3:45; Recording 5, 0:45–2:49",
+    "evidence": "We can only assign it to the contractors. ... Juniper issue laptop ... Juniper EUD role ... non-Juniper laptop ... external EUD role. ... only managers can add [dedicated roles].",
+    "prerequisites": [],
+    "verification": [
+      "Confirm whether the user is a contractor or a direct Juniper employee.",
+      "For a contractor, confirm whether the laptop is Juniper-issued or non-Juniper."
+    ],
+    "steps": [
+      "For contractors, use My Groups to assign the appropriate standard VPN role.",
+      "A Juniper-issued laptop maps to the Juniper third-party secure-access role; a non-Juniper laptop maps to the external third-party secure-access role."
+    ],
+    "failureHandling": [
+      "If a contractor already has standard access but still cannot access the required Juniper sites, the training directs the dedicated-role request to their manager. ITIO and the user must not assign that dedicated role themselves."
+    ],
+    "nextAction": [],
+    "notes": [
+      "ITIO’s standard-role assignment is explicitly limited to contractors in this lesson.",
+      "Exact role spellings (EUD/EOD), the portal URL and click-by-click assignment steps need confirmation."
+    ]
+  },
+  {
+    "id": "zscaler",
+    "title": "Employee cannot access a site",
+    "platform": "Zscaler",
+    "aliases": [
+      "zscaler",
+      "employee site",
+      "employee access",
+      "regular worker"
+    ],
+    "source": "Recording 5, 2:53–3:15",
+    "evidence": "For the employees, if they are not able to access any sites? ... check the Zscaler whether it’s connected or whether they have access for the particular site.",
+    "prerequisites": [],
+    "verification": [
+      "Confirm the user is a regular Juniper employee."
+    ],
+    "steps": [
+      "Check whether Zscaler is connected.",
+      "Check whether the user has access to the particular site."
+    ],
+    "failureHandling": [],
+    "nextAction": [],
+    "notes": [
+      "The excerpt does not include further Zscaler troubleshooting, a portal URL or an escalation procedure."
+    ]
+  },
+  {
+    "id": "ticket",
+    "title": "Create a P3 or P4 incident",
+    "platform": "",
+    "aliases": [
+      "ticket",
+      "p3",
+      "p4",
+      "incident",
+      "servicenow",
+      "service now"
+    ],
+    "source": "Recording 2, 0:15–1:09",
+    "evidence": "the service on portal ... all and staffing tools. [Trainer:] Staff and tools. ... P3 and P4 create incident ... Caller detail, user ID. ... Category.",
+    "prerequisites": [],
+    "verification": [],
+    "steps": [
+      "In the demonstrated ticketing portal, use All → “Staff and tools” → “P3 and P4 create incident” (transcribed labels).",
+      "Enter caller details and user ID, and select Category."
+    ],
+    "failureHandling": [],
+    "nextAction": [],
+    "notes": [
+      "The portal is transcribed as “service on.” ServiceNow is the requested topic label, but the exact portal name, URL, menu wording, category values and remaining ticket fields need confirmation."
+    ]
+  },
+  {
+    "id": "password-wait",
+    "title": "Password change after a reset",
+    "platform": "",
+    "aliases": [
+      "24 hours",
+      "24 hour",
+      "twice",
+      "change after reset",
+      "password policy",
+      "next day"
+    ],
+    "source": "Recording 2, 41:24–42:57",
+    "evidence": "the password can only be changed after 24 hours ... keep the ticket on hold for 24 hours ... follow up ... next day ... close the ticket with user’s confirmation.",
+    "prerequisites": [],
+    "verification": [],
+    "steps": [
+      "Before the reset, explain the 24-hour password-change wait described in this lesson.",
+      "If the user cannot change their password in this scenario, keep the ticket on hold for 24 hours.",
+      "Follow up the next day and close the ticket only with the user’s confirmation."
+    ],
+    "failureHandling": [],
+    "nextAction": [],
+    "notes": [
+      "The trainer alternates between “reset” and “change.” Confirm the policy scope with your TL; do not apply this as a universal restriction to all reset methods.",
+      "The password-change link and detailed password criteria are not included."
+    ]
+  },
+  {
+    "id": "mobile-mail",
+    "title": "Contractor mobile Teams and Outlook",
+    "platform": "",
+    "aliases": [
+      "teams",
+      "outlook",
+      "mobile mail",
+      "email contractor"
+    ],
+    "source": "Recording 5, 4:08–4:26",
+    "evidence": "if a user is a contractor ... Teams and Outlook on his phone ... what is that group? [Trainee:] Intune e-mail Contractors Group.",
+    "prerequisites": [],
+    "verification": [],
+    "steps": [],
+    "failureHandling": [],
+    "nextAction": [
+      "Confirm the group name and assignment procedure with your TL/team."
+    ],
+    "notes": [
+      "A trainee names “Intune e-mail Contractors Group” for contractor mobile Teams/Outlook access. The excerpt ends before trainer confirmation, and contains no assignment steps."
+    ]
+  }
+]

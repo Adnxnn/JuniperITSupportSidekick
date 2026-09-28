@@ -1,0 +1,6 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {answer} from '../server/engine.mjs';
+import {startConversation,addTurn} from '../server/store.mjs';import {randomUUID} from 'node:crypto';
+test('unknown blue screen is never mapped to a generic laptop procedure',async()=>{const id=randomUUID();assert.equal((await answer('Brand new laptop has a blue screen, what do I do?',id)).kind,'unknown')});
+test('ambiguous login asks for a choice',async()=>{const id=randomUUID();const result=await answer('User cannot access the system',id);assert.equal(result.kind,'clarification');assert.equal(result.options.length,3)});
+test('BitLocker follow-up does not invent missing-key handling',async()=>{const id=randomUUID();startConversation(id);const first=await answer('Where do I find a BitLocker recovery key?',id);assert.equal(first.platform,'Microsoft Intune');addTurn(id,'assistant',first.title,'bitlocker');const second=await answer('What if I do not find it?',id);assert.equal(second.kind,'unknown')});
+test('Mac key missing follows documented escalation',async()=>{const id=randomUUID();const first=await answer('Where is the Mac personal recovery key?',id);startConversation(id);addTurn(id,'assistant',first.title,'mac-key');const next=await answer('What if it is missing?',id);assert.match(next.failureHandling[0],/next-level support/)});
