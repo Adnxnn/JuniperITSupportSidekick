@@ -1,4 +1,4 @@
-import { allProcedures,getProcedure,history } from './store.mjs';
+import { allProcedures,getProcedure,getTopics,history } from './store.mjs';
 const unknown=()=>({kind:'unknown',title:'Not covered in the provided training.',message:'The Juniper/HPE-specific procedure for this issue was not found in the available training material. Please check with your TL/team before proceeding.'});
 const clarify=(title,options)=>({kind:'clarification',title,options});
 const words=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
@@ -41,7 +41,7 @@ function choose(q,previous){const s=words(q),last=previous?.procedureId;
  if(/\b(ad manager|ad password|network password|juniper password|forgot password|reset password)\b/.test(s))return getProcedure('ad-password');
  const scored=allProcedures().map(p=>[p,rank(q,p)]).sort((a,b)=>b[1]-a[1]);return scored[0]?.[1]>=4?scored[0][0]:null;
 }
-function present(p,q){if(!p)return unknown();let r={kind:'answer',title:p.title,platform:p.platform,prerequisites:p.prerequisites,verification:p.verification,steps:p.steps,failureHandling:p.failureHandling,nextAction:p.nextAction,notes:p.notes};
+function present(p,q){if(!p)return unknown();let r={kind:'answer',title:p.title,source:p.source,evidence:p.evidence,platform:p.platform,prerequisites:p.prerequisites,verification:p.verification,steps:p.steps,failureHandling:p.failureHandling,nextAction:p.nextAction,notes:p.notes};
  if(p.id==='bitlocker'&&/\b(not find|missing|unknown|not there|no key)\b/.test(words(q)))return {...unknown(),title:'BitLocker key not found in the supplied procedure'};
  if(p.id==='mac-key'&&/\b(not find|missing|unknown|not there|no key)\b/.test(words(q)))r={...r,steps:[],failureHandling:p.failureHandling};
  return r;}
@@ -53,15 +53,22 @@ async function modelSelection(question,previous,candidates){if(!process.env.OPEN
  return id==='UNKNOWN'?'UNKNOWN':id==='CLARIFY'?'CLARIFY':candidates.some(p=>p.id===id)?id:'UNKNOWN';
  }finally{clearTimeout(timeout)}
 }
-export async function answer(question,conversationId){const previous=history(conversationId).filter(h=>h.role==='assistant').at(-1);let a=ambiguity(question,previous?.procedureId);
- if(a)return a;
- const p=choose(question,previous);
- if(!process.env.OPENAI_API_KEY)return present(p,question);
- const all=allProcedures();const result=await modelSelection(question,previous,all);
- if(result==='CLARIFY')return clarify('What kind of issue is this?',options.access);
- if(result==='UNKNOWN')return unknown();
- const selected=getProcedure(result);if(!selected)return unknown();
- // Grounding: the model selects an existing reviewed record; it never writes answer fields.
+export async function answer(question,conversationId,topicId){
+ const topic=topicId?getTopics().find(t=>t.id===topicId):null;
+ if(topicId&&!topic)return unknown();
+ const allowed=topic?allProcedures().filter(p=>topic.procedures.includes(p.id)):allProcedures();
+ const previous=history(conversationId).filter(h=>h.role==='assistant'&&(!topic||topic.procedures.includes(h.procedureId))).at(-1);
+ const scopedUnknown=()=>topic?{kind:'unknown',title:'Not covered in this topic’s training.',message:'No matching procedure was found in the '+topic.name+' notes. Open the relevant topic or use AI Assistant to search all training.'}:unknown();
+ const a=ambiguity(question,previous?.procedureId);
+ if(a){const filtered=topic?a.options.filter(([,q])=>allowed.some(p=>p.id===choose(q,null)?.id)):a.options;return filtered.length?{...a,options:filtered.map(([label,question])=>({label,question}))}:scopedUnknown();}
+ let p=choose(question,previous);
+ if(!p&&topic&&allowed.length===1&&!/\b(blue screen|bsod|new laptop)\b/.test(words(question))&&/^(what (are the steps|should i (do|check))|steps|what next|next steps)[ ?]*$/i.test(question.trim()))p=allowed[0];
+ if(!process.env.OPENAI_API_KEY)return p&&allowed.some(x=>x.id===p.id)?present(p,question):scopedUnknown();
+ const result=await modelSelection(question,previous,allowed);
+ if(result==='CLARIFY')return clarify('Which training procedure do you need?',allowed.map(p=>({label:p.title,question:p.aliases[0]||p.title})));
+ if(result==='UNKNOWN')return scopedUnknown();
+ const selected=allowed.find(p=>p.id===result);if(!selected)return scopedUnknown();
  return present(selected,question);
 }
 export {unknown};
+
