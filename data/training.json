@@ -11,7 +11,7 @@
       "before proceeding"
     ],
     "source": "Recording 1, 0:14–0:54",
-    "evidence": "We learned about user validation process with the cybersecurity questions for the call as well as the chat. So that would be the manager's name, employee ID, and work location. ... These cyber security questions would apply for the AD password reset, MAC recovery ... BitLocker, MFA reset.",
+    "evidence": "We learned about user validation process with the cybersecurity questions for the call as well as the chat. So that would be the manager's name, employee ID, and work location. So if in case the user is not aware of this Juniper ID, we can validate with his HP ID. ... These cyber security questions would apply for the AD password reset, MAC recovery ... BitLocker, MFA reset.",
     "prerequisites": [
       "User validation applies to calls and chats for AD password resets, Mac recovery keys, BitLocker and MFA resets."
     ],
@@ -22,8 +22,9 @@
     "failureHandling": [],
     "nextAction": [],
     "notes": [
-      "The alternative “HP ID” and directory wording is unclear in the supplied transcript; confirm that alternate validation route with your TL."
-    ]
+      "The recap names “HP ID” as an alternative when the Juniper ID is unknown, and mentions an HP directory. The exact directory name and lookup steps are not included."
+    ],
+    "coverage": "excerpt"
   },
   {
     "id": "ad-password",
@@ -51,7 +52,8 @@
     ],
     "notes": [
       "AD Manager is identified as the tool. The exact password-reset navigation and steps are not included in the supplied excerpts."
-    ]
+    ],
+    "coverage": "partial"
   },
   {
     "id": "mac-key",
@@ -60,16 +62,16 @@
     "aliases": [
       "mac recovery",
       "mac key",
-      "mac password",
-      "local mac",
-      "filevault",
-      "personal recovery key"
+      "personal recovery key",
+      "disk encryption",
+      "inventory recovery key"
     ],
     "source": "Recording 1, 45:53–47:53",
     "evidence": "Not the complete e-mail ID, just the user ID with the star symbol. ... under the inventory ... Click on disk encryption. ... personal recovery key ... if it’s like unknown or there is no recovery key, that’s when we escalate it to the next level support.",
     "prerequisites": [],
     "verification": [
-      "Verify the user using the manager’s name, employee ID and work location."
+      "Verify the user using the manager’s name, employee ID and work location.",
+      "The trainer confirms that the device serial number is required in the demonstrated recovery-key lookup."
     ],
     "steps": [
       "In the demonstrated device-management portal, search using the user ID with a star symbol, not the complete email address.",
@@ -81,8 +83,10 @@
     ],
     "nextAction": [],
     "notes": [
-      "The portal name, star-symbol placement, exact escalation group and approved key-sharing channel are not provided. Confirm these with your TL before using this partial procedure."
-    ]
+      "The portal name, star-symbol placement, exact escalation group and approved key-sharing channel are not provided. Confirm these with your TL before using this partial procedure.",
+      "These are recovery-key lookup notes. The supplied excerpt does not show the local Mac password-reset steps."
+    ],
+    "coverage": "partial"
   },
   {
     "id": "bitlocker",
@@ -106,7 +110,8 @@
     ],
     "notes": [
       "The training identifies Intune as the portal. The retrieval walkthrough and procedure for a missing BitLocker key are absent from the supplied excerpts."
-    ]
+    ],
+    "coverage": "partial"
   },
   {
     "id": "mfa",
@@ -121,7 +126,7 @@
       "re-register",
       "passkey"
     ],
-    "source": "Recording 3, 19:48–25:57; Recording 1, 0:14–0:54",
+    "source": "Recording 3, 18:12–25:57; Recording 1, 0:14–0:54",
     "evidence": "Log into the Azure portal ... users, then all users ... select authentication methods ... require re-register and revoke MFA sessions. ... the password reset thing, we do not use this. ... after we delete the passkey or the e-mail ... re-register ... close the link and open it again.",
     "prerequisites": [
       "Confirm the user knows their network password. If they have forgotten it and also cannot receive authenticator codes, resolve the password issue first."
@@ -138,12 +143,14 @@
       "If setup still fails in the demonstrated scenario, check for remaining passkeys or email methods. Use the three-dot menu to delete the remaining method identified in that scenario.",
       "Require MFA re-registration again, then ask the user to close and reopen the setup link and retry.",
       "Try another browser, or copy and paste the setup link into the browser.",
+      "The trainer also mentions reinstalling the authenticator application in this setup-failure scenario.",
       "If the problem persists, document the attempts and route the issue to the IAM/infra support team; confirm the exact assignment-group name with your TL."
     ],
     "nextAction": [],
     "notes": [
       "The setup URL and escalation email spellings are unclear in the transcript and are not supplied here."
-    ]
+    ],
+    "coverage": "excerpt"
   },
   {
     "id": "iphone",
@@ -176,7 +183,8 @@
     "nextAction": [],
     "notes": [
       "The excerpt does not provide a procedure for Android devices or for a missing Remove passcode action."
-    ]
+    ],
+    "coverage": "excerpt"
   },
   {
     "id": "vpn",
@@ -210,7 +218,8 @@
     "notes": [
       "ITIO’s standard-role assignment is explicitly limited to contractors in this lesson.",
       "Exact role spellings (EUD/EOD), the portal URL and click-by-click assignment steps need confirmation."
-    ]
+    ],
+    "coverage": "partial"
   },
   {
     "id": "zscaler",
@@ -236,7 +245,8 @@
     "nextAction": [],
     "notes": [
       "The excerpt does not include further Zscaler troubleshooting, a portal URL or an escalation procedure."
-    ]
+    ],
+    "coverage": "excerpt"
   },
   {
     "id": "ticket",
@@ -262,7 +272,8 @@
     "nextAction": [],
     "notes": [
       "The portal is transcribed as “service on.” ServiceNow is the requested topic label, but the exact portal name, URL, menu wording, category values and remaining ticket fields need confirmation."
-    ]
+    ],
+    "coverage": "partial"
   },
   {
     "id": "password-wait",
@@ -290,7 +301,8 @@
     "notes": [
       "The trainer alternates between “reset” and “change.” Confirm the policy scope with your TL; do not apply this as a universal restriction to all reset methods.",
       "The password-change link and detailed password criteria are not included."
-    ]
+    ],
+    "coverage": "excerpt"
   },
   {
     "id": "mobile-mail",
@@ -313,6 +325,102 @@
     ],
     "notes": [
       "A trainee names “Intune e-mail Contractors Group” for contractor mobile Teams/Outlook access. The excerpt ends before trainer confirmation, and contains no assignment steps."
-    ]
+    ],
+    "coverage": "partial"
+  },
+  {
+    "id": "mac-password",
+    "title": "Local Mac password reset",
+    "platform": "",
+    "aliases": [
+      "local mac password",
+      "mac password reset",
+      "mac login password"
+    ],
+    "source": "Recording 1, 0:54; Recording 3, 0:03–0:19",
+    "evidence": "We learned about the local MAC passwords. ... how we recover the personal recovery MAC recovery key ... and how to reset the password.",
+    "steps": [],
+    "verification": [],
+    "notes": [
+      "Local Mac passwords and password resets are named in the recap. The actual reset walkthrough is absent from this excerpt. Recovery-key lookup is a separate procedure."
+    ],
+    "prerequisites": [],
+    "failureHandling": [],
+    "nextAction": [],
+    "coverage": "partial"
+  },
+  {
+    "id": "bitlocker-prompts",
+    "title": "BitLocker recovery-screen scenarios",
+    "platform": "",
+    "aliases": [
+      "bitlocker prompt",
+      "bitlocker screen",
+      "bitlocker trigger",
+      "bitlocker after update"
+    ],
+    "source": "Recording 2, 38:20–40:35",
+    "evidence": "Multiple incorrect password. ... sometimes when the device goes through ... updates. ... Motherboard changes, updates. ... And when the user’s laptop is locked out. ... it can be the keyboard issue ... keyboard motherboard issues as well.",
+    "steps": [],
+    "verification": [],
+    "notes": [
+      "In the training, BitLocker recovery prompts are discussed after incorrect password attempts, device updates, motherboard changes, and laptop lockout.",
+      "The trainer also mentions keyboard or motherboard issues in the lockout discussion. These are scenarios described in the lesson, not a diagnosis of every recovery prompt.",
+      "The excerpt does not contain repair steps for blue screens, keyboard faults, or motherboard faults."
+    ],
+    "prerequisites": [],
+    "failureHandling": [],
+    "nextAction": [],
+    "coverage": "excerpt"
+  },
+  {
+    "id": "mfa-admin",
+    "title": "MFA admin-portal access",
+    "platform": "Azure Portal",
+    "aliases": [
+      "mfa admin access",
+      "azure admin access",
+      "admin portal access"
+    ],
+    "source": "Recording 3, 18:12–19:20",
+    "evidence": "The admin portal access, if you require admin portal access, please log a help desk ticket and the assignment group for the MFA issues would be IT infra IAM team.",
+    "steps": [
+      "Log a help-desk ticket if admin-portal access is required."
+    ],
+    "verification": [],
+    "notes": [
+      "The trainer names the IT infra IAM team for MFA issues; the excerpt also says ITIO infra team. Exact assignment-group and escalation-email spellings need confirmation."
+    ],
+    "prerequisites": [],
+    "failureHandling": [],
+    "nextAction": [],
+    "coverage": "partial"
+  },
+  {
+    "id": "groups-membership",
+    "title": "Find application groups in My Groups",
+    "platform": "My Groups",
+    "aliases": [
+      "application groups",
+      "distribution list",
+      "email alias",
+      "join group",
+      "group membership"
+    ],
+    "source": "Recording 4, 5:07–5:27",
+    "evidence": "In the My Groups portal, a user can add or join any application groups ... e-mail, alias, any distribution list. ... He can search from the my groups portal and join the particular group.",
+    "steps": [
+      "Open My Groups and search for the required application group, email alias, or distribution list.",
+      "The trainer describes joining the particular group from My Groups."
+    ],
+    "verification": [],
+    "notes": [
+      "The excerpt does not include approval requirements or a complete click-by-click walkthrough.",
+      "Dedicated VPN roles are a separate case: the training says only the user’s manager can add them."
+    ],
+    "prerequisites": [],
+    "failureHandling": [],
+    "nextAction": [],
+    "coverage": "partial"
   }
 ]

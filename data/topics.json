@@ -1,327 +1,101 @@
 [
   {
-    "id": "password",
-    "name": "Password Reset",
-    "description": "Network and local passwords",
-    "icon": "key",
-    "question": "Password reset",
-    "procedures": [
-      "ad-password",
-      "mac-key",
-      "password-wait"
-    ],
-    "searchTerms": [
-      "Juniper network password reset",
-      "AD Manager",
-      "network password",
-      "ad password",
-      "juniper password",
-      "forgot password",
-      "laptop login",
-      "reset password",
-      "password reset",
-      "Mac personal recovery key",
-      "",
-      "mac recovery",
-      "mac key",
-      "mac password",
-      "local mac",
-      "filevault",
-      "personal recovery key",
-      "In the demonstrated device-management portal, search using the user ID with a star symbol, not the complete email address.",
-      "Under Inventory, scroll to Disk Encryption.",
-      "Locate the Personal Recovery Key.",
-      "Password change after a reset",
-      "",
-      "24 hours",
-      "24 hour",
-      "twice",
-      "change after reset",
-      "password policy",
-      "next day",
-      "Before the reset, explain the 24-hour password-change wait described in this lesson.",
-      "If the user cannot change their password in this scenario, keep the ticket on hold for 24 hours.",
-      "Follow up the next day and close the ticket only with the user\u2019s confirmation."
-    ]
-  },
-  {
-    "id": "laptop",
-    "name": "Laptop & Device",
-    "description": "Login and device recovery",
-    "icon": "laptop",
-    "question": "Laptop and device login help",
-    "procedures": [
-      "ad-password",
-      "mac-key",
-      "bitlocker"
-    ],
-    "searchTerms": [
-      "Juniper network password reset",
-      "AD Manager",
-      "network password",
-      "ad password",
-      "juniper password",
-      "forgot password",
-      "laptop login",
-      "reset password",
-      "password reset",
-      "Mac personal recovery key",
-      "",
-      "mac recovery",
-      "mac key",
-      "mac password",
-      "local mac",
-      "filevault",
-      "personal recovery key",
-      "In the demonstrated device-management portal, search using the user ID with a star symbol, not the complete email address.",
-      "Under Inventory, scroll to Disk Encryption.",
-      "Locate the Personal Recovery Key.",
-      "BitLocker recovery key",
-      "Microsoft Intune",
-      "bitlocker",
-      "bit locker",
-      "windows recovery key"
-    ]
-  },
-  {
-    "id": "vpn",
-    "name": "Access & VPN",
-    "description": "Contractor roles and site access",
-    "icon": "network",
-    "question": "How do I get VPN access?",
-    "procedures": [
-      "vpn",
-      "zscaler"
-    ],
-    "searchTerms": [
-      "Contractor VPN access",
-      "My Groups",
-      "vpn",
-      "my groups",
-      "contractor",
-      "standard role",
-      "dedicated role",
-      "external eud",
-      "juniper eud",
-      "access vpn",
-      "For contractors, use My Groups to assign the appropriate standard VPN role.",
-      "A Juniper-issued laptop maps to the Juniper third-party secure-access role; a non-Juniper laptop maps to the external third-party secure-access role.",
-      "Employee cannot access a site",
-      "Zscaler",
-      "zscaler",
-      "employee site",
-      "employee access",
-      "regular worker",
-      "Check whether Zscaler is connected.",
-      "Check whether the user has access to the particular site."
-    ]
-  },
-  {
-    "id": "mobile",
-    "name": "Mobile Devices",
-    "description": "iPhone passcodes and compliance",
-    "icon": "phone",
-    "question": "User's iPhone is locked",
-    "procedures": [
-      "iphone",
-      "mobile-mail"
-    ],
-    "searchTerms": [
-      "Locked iPhone or invalid passcode",
-      "Microsoft Intune",
-      "iphone",
-      "phone locked",
-      "phone passcode",
-      "mobile devices",
-      "mobile device",
-      "ios",
-      "phone password",
-      "intune compliance",
-      "Open Intune admin center \u2192 Devices \u2192 Apple Mobile.",
-      "Find and select the user\u2019s registered iPhone device name.",
-      "For a locked phone, use Remove passcode if that action is available.",
-      "For an invalid-passcode error, open Device compliance and check the passcode compliance status and errors. If it is non-compliant, the training describes using Remove passcode.",
-      "Ask the user to set a new passcode when prompted on the device.",
-      "Contractor mobile Teams and Outlook",
-      "",
-      "teams",
-      "outlook",
-      "mobile mail",
-      "email contractor"
-    ]
-  },
-  {
-    "id": "ticket",
-    "name": "ServiceNow",
-    "description": "Incident creation and follow-up",
-    "icon": "ticket",
-    "question": "How do I create a P3 ticket?",
-    "procedures": [
-      "ticket",
-      "password-wait"
-    ],
-    "searchTerms": [
-      "Create a P3 or P4 incident",
-      "",
-      "ticket",
-      "p3",
-      "p4",
-      "incident",
-      "servicenow",
-      "service now",
-      "In the demonstrated ticketing portal, use All \u2192 \u201cStaff and tools\u201d \u2192 \u201cP3 and P4 create incident\u201d (transcribed labels).",
-      "Enter caller details and user ID, and select Category.",
-      "Password change after a reset",
-      "",
-      "24 hours",
-      "24 hour",
-      "twice",
-      "change after reset",
-      "password policy",
-      "next day",
-      "Before the reset, explain the 24-hour password-change wait described in this lesson.",
-      "If the user cannot change their password in this scenario, keep the ticket on hold for 24 hours.",
-      "Follow up the next day and close the ticket only with the user\u2019s confirmation."
-    ]
-  },
-  {
-    "id": "mfa",
-    "name": "Security & MFA",
-    "description": "Verification and authentication",
+    "id": "verification",
+    "name": "User Validation",
+    "description": "Identity checks for calls and chats",
     "icon": "shield",
-    "question": "How do I reset MFA?",
     "procedures": [
-      "mfa",
       "verification"
-    ],
-    "searchTerms": [
-      "Verify the user",
-      "",
-      "verify",
-      "validation",
-      "identity",
-      "cybersecurity questions",
-      "before proceeding",
-      "Reset MFA registration",
-      "Azure Portal",
-      "mfa",
-      "authenticator",
-      "authentication",
-      "verification code",
-      "revoke",
-      "re-register",
-      "passkey",
-      "Open Azure Portal and go to Users \u2192 All users.",
-      "Select the user and open Authentication methods.",
-      "Require MFA re-registration and revoke MFA sessions. Do not use the password-reset option in this MFA workflow."
+    ]
+  },
+  {
+    "id": "password",
+    "name": "AD Password Reset",
+    "description": "AD Manager and the 24-hour change wait",
+    "icon": "key",
+    "procedures": [
+      "ad-password",
+      "password-wait",
+      "verification"
+    ]
+  },
+  {
+    "id": "mac",
+    "name": "Mac Password & Recovery",
+    "description": "Local passwords and personal recovery keys",
+    "icon": "laptop",
+    "procedures": [
+      "mac-password",
+      "mac-key",
+      "verification"
     ]
   },
   {
     "id": "bitlocker",
     "name": "BitLocker Recovery",
-    "description": "Find the recovery-key platform",
+    "description": "Intune, recovery prompts, and known gaps",
     "icon": "lock",
-    "question": "Where do I get the BitLocker recovery key?",
     "procedures": [
-      "bitlocker"
-    ],
-    "searchTerms": [
-      "BitLocker recovery key",
-      "Microsoft Intune",
       "bitlocker",
-      "bit locker",
-      "windows recovery key"
+      "bitlocker-prompts",
+      "verification"
     ]
   },
   {
-    "id": "intune",
-    "name": "Intune",
-    "description": "Device and mobile support",
-    "icon": "monitor",
-    "question": "What can I do in Intune?",
+    "id": "mfa",
+    "name": "MFA & Authentication",
+    "description": "Azure registration, sessions, and setup issues",
+    "icon": "shield",
     "procedures": [
-      "bitlocker",
-      "iphone",
-      "mobile-mail"
-    ],
-    "searchTerms": [
-      "BitLocker recovery key",
-      "Microsoft Intune",
-      "bitlocker",
-      "bit locker",
-      "windows recovery key",
-      "Locked iPhone or invalid passcode",
-      "Microsoft Intune",
-      "iphone",
-      "phone locked",
-      "phone passcode",
-      "mobile devices",
-      "mobile device",
-      "ios",
-      "phone password",
-      "intune compliance",
-      "Open Intune admin center \u2192 Devices \u2192 Apple Mobile.",
-      "Find and select the user\u2019s registered iPhone device name.",
-      "For a locked phone, use Remove passcode if that action is available.",
-      "For an invalid-passcode error, open Device compliance and check the passcode compliance status and errors. If it is non-compliant, the training describes using Remove passcode.",
-      "Ask the user to set a new passcode when prompted on the device.",
-      "Contractor mobile Teams and Outlook",
-      "",
-      "teams",
-      "outlook",
-      "mobile mail",
-      "email contractor"
+      "mfa",
+      "mfa-admin",
+      "verification"
+    ]
+  },
+  {
+    "id": "mobile",
+    "name": "iPhone Passcode & Compliance",
+    "description": "Remove passcode and check Intune compliance",
+    "icon": "phone",
+    "procedures": [
+      "iphone"
+    ]
+  },
+  {
+    "id": "vpn",
+    "name": "My Groups & VPN Roles",
+    "description": "Contractor roles and group membership",
+    "icon": "users",
+    "procedures": [
+      "vpn",
+      "groups-membership"
     ]
   },
   {
     "id": "zscaler",
-    "name": "Zscaler",
-    "description": "Employee site connectivity",
+    "name": "Zscaler Site Access",
+    "description": "Employee connectivity and site access checks",
     "icon": "globe",
-    "question": "Employee cannot access sites using Zscaler",
     "procedures": [
       "zscaler"
-    ],
-    "searchTerms": [
-      "Employee cannot access a site",
-      "Zscaler",
-      "zscaler",
-      "employee site",
-      "employee access",
-      "regular worker",
-      "Check whether Zscaler is connected.",
-      "Check whether the user has access to the particular site."
     ]
   },
   {
-    "id": "groups",
-    "name": "My Groups",
-    "description": "Standard and dedicated VPN roles",
-    "icon": "users",
-    "question": "How do I use My Groups for VPN roles?",
+    "id": "ticket",
+    "name": "P3 / P4 Incidents",
+    "description": "Caller details and incident creation",
+    "icon": "ticket",
     "procedures": [
-      "vpn",
+      "ticket"
+    ]
+  },
+  {
+    "id": "mobile-mail",
+    "name": "Mobile Teams & Outlook",
+    "description": "Contractor mobile-access group mentioned in training",
+    "icon": "network",
+    "procedures": [
       "mobile-mail"
-    ],
-    "searchTerms": [
-      "Contractor VPN access",
-      "My Groups",
-      "vpn",
-      "my groups",
-      "contractor",
-      "standard role",
-      "dedicated role",
-      "external eud",
-      "juniper eud",
-      "access vpn",
-      "For contractors, use My Groups to assign the appropriate standard VPN role.",
-      "A Juniper-issued laptop maps to the Juniper third-party secure-access role; a non-Juniper laptop maps to the external third-party secure-access role.",
-      "Contractor mobile Teams and Outlook",
-      "",
-      "teams",
-      "outlook",
-      "mobile mail",
-      "email contractor"
     ]
   }
 ]
