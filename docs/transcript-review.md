@@ -1,6 +1,6 @@
 # Transcript review
 
-Reviewed source: the supplied `Pasted markdown.md`, containing excerpts from Recordings 1–5. This is the only source for support knowledge. Screenshot text is visual reference only.
+Reviewed sources: the supplied `Pasted markdown.md`, containing excerpts from Recordings 1–5, and the additional training excerpt pasted in chat. These are the only sources for support knowledge. Screenshot text is visual reference only.
 
 | Home topic | Reviewed records | Transcript passages |
 | --- | --- | --- |
@@ -14,6 +14,9 @@ Reviewed source: the supplied `Pasted markdown.md`, containing excerpts from Rec
 | Zscaler Site Access | Employee connection and site-access checks | Recording 5, 2:53–3:15 |
 | P3 / P4 Incidents | Incident entry point, caller/user ID and category | Recording 2, 0:15–1:09 |
 | Mobile Teams & Outlook | Contractor mobile group mention | Recording 5, 4:08–4:26 |
+| Software & Self-Service | Software Center, self-service portal, and networking template introduction | New training excerpt, 1:53–2:05 |
+| Ticket Assignment Groups | CI/global-search routing; networking, SAP Basis, Concur, ADP BI, SAP Security, GTM Ops, SAP quotation, demand/supply | New training excerpt, 1:42:34–1:46:34 |
+| iOS & Zoom Recap | HPE account/iOS enrollment, Zoom licence/expiry and Zoom Global Service group mentions | New training excerpt, 0:31–0:50 |
 
 ## Interpretation decisions
 
@@ -25,10 +28,12 @@ Reviewed source: the supplied `Pasted markdown.md`, containing excerpts from Rec
 - The mobile Teams/Outlook group name is a trainee response at the end of the excerpt; do not turn it into a confirmed assignment procedure.
 - The isolated “Okta” utterance and configuration-item recap have no usable procedure. They do not become support-topic cards.
 - No generic laptop, blue-screen, Android, printer, or hardware-repair topic is introduced.
+- The additional excerpt jumps from 2:05 to 1:42:34. Software Center, self-service, networking template, iOS enrollment, and Zoom are mentioned but their demonstrations are absent. Do not invent their steps or treat a trainee recap as a confirmed walkthrough.
+- Assignment-group routing uses the configuration item and global search. Application-specific groups still require checking the CI and issue type; transcription of some exact names is uncertain.
 - Existing configured public Microsoft links are tool destinations, not support evidence. Missing organization-specific portal addresses are never inferred from screenshot mockups.
 
 ## Knowledge lifecycle
 
 `data/training.json` holds the reviewed records and their source passages. Every record is mapped to at least one appropriate topic. JSON is authoritative after restart, so legacy SQLite procedure rows cannot supply stale answers. Newly ingested raw transcripts remain unreviewed until their procedures and supporting excerpts are added to the reviewed file.
 
-The assistant returns reviewed record fields, never model-written steps. Topic questions filter the allowed procedure IDs before answering. Unsupported issues and ambiguous cases return an explicit gap or a clarification. If optional model selection is unavailable, local reviewed routing continues to work.
+The assistant returns reviewed record fields, never model-written steps. Topic pages submit questions to `/api/topics/:id/ask` and filter the allowed procedure IDs before answering on that page; the general assistant has a separate endpoint and conversation scope. Unsupported issues and ambiguous cases return an explicit gap or a clarification. If optional model selection is unavailable, local reviewed routing continues to work.

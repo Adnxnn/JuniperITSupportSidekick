@@ -10,6 +10,20 @@ const unsupported=s=>/\b(android|samsung|linux|printer|printing|wifi|wi fi|outlo
 const followup=s=>/^(what (if|happens if) (it|the key) (is |isnt |is not |doesnt |does not )?(missing|unknown|there|found|work|working)|what if i (cannot|cant|do not|dont) find (it|the key)|it (is |isnt |is not |still )?(missing|unknown|not there|not found|not working)|still (not working|cannot access|cant access)|what (next|should i do next)|next steps|what (are the steps|should i (do|check))|steps|where (is it|do i find it)|which (tool|portal)( should i use)?)$/.test(s);
 function select(s){
  if(/\b(verify|validation|validate|identity|cybersecurity questions|manager s name|managers name|employee id|work location)\b/.test(s))return 'verification';
+ if(/\b(software center|software centre)\b/.test(s))return 'software-center-intro';
+ if(/\b(self service portal|self service)\b/.test(s))return 'self-service-intro';
+ if(/\b(networking template|network template)\b/.test(s))return 'network-template-intro';
+ if(/\b(ios enrollment|ios enrolment|intune ios|hpe account enrollment)\b/.test(s))return 'ios-enrollment-recap';
+ if(/\b(zoom)\b/.test(s))return 'zoom-recap';
+ if(/\b(sap basis|basis production|it staff basis)\b/.test(s))return 'sap-basis';
+ if(/\b(concur|conquer)\b/.test(s))return 'concur-support';
+ if(/\b(adp bi|enterprise data platform|bi related|business intelligence)\b/.test(s))return 'adp-bi';
+ if(/\b(sap security)\b/.test(s))return 'sap-security';
+ if(/\b(gtm ops|gtm operations)\b/.test(s))return 'gtm-ops';
+ if(/\b(quotation management|sap quotation)\b/.test(s))return 'sap-quotation';
+ if(/\b(demand supply|demand and supply)\b/.test(s))return 'demand-supply';
+ if(/\b(networking related issues?|network assignment group|network support team)\b/.test(s))return 'network-assignment';
+ if(/\b(assignment group|route (the )?ticket|routing ticket|configuration item|global search|which support team|which team handles)\b/.test(s))return 'assignment-routing';
  if(/\b(admin portal access|admin access|access to (the )?(azure|admin) portal)\b/.test(s))return 'mfa-admin';
  if(/\b(password)\b/.test(s)&&/\b(24|twice|next day|after reset|after a reset|after resetting)\b/.test(s)||/^(24 hours|password policy|change after reset)$/.test(s))return 'password-wait';
  if(/\b(bitlocker|bit locker)\b/.test(s))return /\b(why|trigger|cause|scenario|after update|after an update|motherboard|incorrect attempts)\b/.test(s)?'bitlocker-prompts':'bitlocker';
@@ -46,7 +60,7 @@ export async function answer(question,conversationId,topicId){
  if(topicId&&!topic)return unknown();
  const allowed=allProcedures().filter(p=>!topic||topic.procedures.includes(p.id));
  const allowedId=id=>allowed.some(p=>p.id===id);
- const notCovered=()=>topic?{kind:'unknown',title:'Not covered in this topic’s training.',message:`No matching procedure was found in the ${topic.name} notes. Use another topic or AI Assistant to search all training.`}:unknown();
+ const notCovered=()=>topic?{kind:'unknown',title:'Not covered in this topic’s training.',message:`No matching procedure was found in the ${topic.name} notes. Try a question about this topic's training.`}:unknown();
  const previous=history(conversationId).filter(h=>h.role==='assistant').at(-1);
  const last=previous&&allowedId(previous.procedureId)?getProcedure(previous.procedureId):null;
  const s=words(question);

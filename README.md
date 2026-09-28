@@ -1,6 +1,6 @@
 # Juniper IT Support Sidekick
 
-A transcript-based support workspace with a notes-first Home page, ten specific training topics, a general AI Assistant, and Quick Links. The HPE/Juniper logo and aqua layout follow the supplied visual reference.
+A transcript-based support workspace with a notes-first Home page, thirteen specific training topics, a general AI Assistant, and Quick Links. The HPE/Juniper logo and aqua layout follow the supplied visual reference.
 
 ## Run
 
@@ -23,7 +23,7 @@ Set `HOST`, `PORT`, and `APP_ORIGIN` for your hosting environment. `APP_ORIGIN` 
 ## Pages
 
 - Home filters topics and notes without starting a chat.
-- `/topics/:id` shows the relevant reviewed notes, checks, steps, gaps, source excerpts, copy controls, and a compact topic question box.
+- `/topics/:id` shows the relevant reviewed notes, checks, steps, gaps, source excerpts, copy controls, and a compact topic question box. Questions use `/api/topics/:id/ask` on the same page and do not navigate to the general assistant.
 - `/assistant` answers across all reviewed procedures and supports clarification choices, follow-ups, copy, retry, and clearing the conversation.
 - `/quick-links` shows tools named in training. Configured Microsoft portals open directly. Tools without supplied organization-specific URLs open their training notes instead.
 - The sidebar opens and closes on desktop and mobile. Desktop preference is saved locally. Mobile navigation also closes after selection, with Escape, or by tapping the backdrop.
@@ -32,11 +32,11 @@ Set `HOST`, `PORT`, and `APP_ORIGIN` for your hosting environment. `APP_ORIGIN` 
 
 See [the transcript review](docs/transcript-review.md) for exact topic/source mappings and interpretation decisions.
 
-`data/training.json` is authoritative reviewed knowledge. Each record includes evidence and recording timestamps. `data/topics.json` maps the records to ten topics. Search terms are derived from those records at runtime. Restart after editing the reviewed files; stale SQLite procedure rows are ignored.
+`data/training.json` is authoritative reviewed knowledge. Each record includes evidence and recording timestamps. `data/topics.json` maps the records to thirteen topics. Search terms are derived from those records at runtime. Restart after editing the reviewed files; stale SQLite procedure rows are ignored.
 
-Only the supplied transcript excerpts provide support instructions. The excerpts omit some AD password-reset, local Mac password-reset, BitLocker retrieval, and incident-entry steps. The app states those gaps instead of filling them with generic support knowledge. It distinguishes Mac recovery from BitLocker and employee VPN eligibility from contractor assignment.
+Only the supplied transcript excerpts provide support instructions. The excerpts omit some AD password-reset, local Mac password-reset, BitLocker retrieval, incident-entry, Software Center, self-service, networking-template, iOS-enrollment, and Zoom steps. The app states those gaps instead of filling them with generic support knowledge. It distinguishes Mac recovery from BitLocker and employee VPN eligibility from contractor assignment.
 
-Without a key, local intent routing selects reviewed records. Optionally set `OPENAI_API_KEY` and `OPENAI_MODEL` on the server for additional intent selection. The model may only choose a reviewed record ID; it does not generate operational instructions. Topic restrictions apply to both paths. Model outages preserve local routing. Live model selection requires separately configured credentials and was not exercised during this update.
+Without a key, local intent routing selects reviewed records. Optionally set `OPENAI_API_KEY` and `OPENAI_MODEL` on the server for additional intent selection. The model may only choose a reviewed record ID; it does not generate operational instructions. Topic restrictions apply to both paths, and topic conversations stay separate from the general assistant. Model outages preserve local routing. Live model selection requires separately configured credentials and was not exercised during this update.
 
 To store another transcript for review:
 
