@@ -97,5 +97,43 @@
     "procedures": [
       "mobile-mail"
     ]
+  },
+  {
+    "id": "software-self-service",
+    "name": "Software & Self-Service",
+    "description": "Software Center, self-service portal, and networking template",
+    "icon": "monitor",
+    "procedures": [
+      "software-center-intro",
+      "self-service-intro",
+      "network-template-intro"
+    ]
+  },
+  {
+    "id": "assignment-groups",
+    "name": "Ticket Assignment Groups",
+    "description": "Match the configuration item to the supporting team",
+    "icon": "ticket",
+    "procedures": [
+      "assignment-routing",
+      "network-assignment",
+      "sap-basis",
+      "concur-support",
+      "adp-bi",
+      "sap-security",
+      "gtm-ops",
+      "sap-quotation",
+      "demand-supply"
+    ]
+  },
+  {
+    "id": "ios-zoom-recap",
+    "name": "iOS & Zoom Recap",
+    "description": "Enrollment, HPE account, Zoom licence, and group mentions",
+    "icon": "phone",
+    "procedures": [
+      "ios-enrollment-recap",
+      "zoom-recap"
+    ]
   }
 ]
