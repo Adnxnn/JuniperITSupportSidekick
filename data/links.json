@@ -1,5 +1,88 @@
 [
-  {"id":"intune","name":"Microsoft Intune","purpose":"Device management, recovery keys and phone passcodes.","url":"https://intune.microsoft.com","keywords":["device","bitlocker","phone","recovery"],"verifiedSource":"https://learn.microsoft.com/en-us/intune/fundamentals/account-sign-up","trainingSource":"Recording 3, 1:31–1:38 and 26:31–30:17"},
-  {"id":"azure","name":"Azure Portal","purpose":"Manage user authentication methods and MFA sessions.","url":"https://portal.azure.com","keywords":["security","mfa","authenticator","authentication"],"verifiedSource":"https://learn.microsoft.com/en-us/azure/azure-portal/azure-portal-overview","trainingSource":"Recording 3, 19:48–20:33"},
-  {"id":"teams","name":"Microsoft Teams","purpose":"Open Teams for communication and meetings.","url":"https://teams.microsoft.com","keywords":["meeting","chat","call","collaboration"],"verifiedSource":"https://support.microsoft.com/en-us/teams/meetings/use-microsoft-teams-on-the-web","trainingSource":"Recording 5, 4:08–4:26 (application mentioned; purpose is a link description, not a support procedure)"}
+  {
+    "id": "intune",
+    "name": "Microsoft Intune",
+    "purpose": "Device management, recovery keys and phone passcodes.",
+    "url": "https://intune.microsoft.com",
+    "keywords": [
+      "device",
+      "bitlocker",
+      "phone",
+      "recovery"
+    ],
+    "verifiedSource": "https://learn.microsoft.com/en-us/intune/fundamentals/account-sign-up",
+    "trainingSource": "Recording 3, 1:31\u20131:38 and 26:31\u201330:17"
+  },
+  {
+    "id": "azure",
+    "name": "Azure Portal",
+    "purpose": "Manage user authentication methods and MFA sessions.",
+    "url": "https://portal.azure.com",
+    "keywords": [
+      "security",
+      "mfa",
+      "authenticator",
+      "authentication"
+    ],
+    "verifiedSource": "https://learn.microsoft.com/en-us/azure/azure-portal/azure-portal-overview",
+    "trainingSource": "Recording 3, 19:48\u201320:33"
+  },
+  {
+    "id": "teams",
+    "name": "Microsoft Teams",
+    "purpose": "Teams and Outlook mobile access are discussed for contractors.",
+    "url": "https://teams.microsoft.com",
+    "keywords": [
+      "teams",
+      "outlook",
+      "mobile",
+      "contractor"
+    ],
+    "verifiedSource": "https://support.microsoft.com/en-us/teams/meetings/use-microsoft-teams-on-the-web",
+    "trainingSource": "Recording 5, 4:08\u20134:26 (application mentioned; purpose is a link description, not a support procedure)"
+  },
+  {
+    "id": "ad-manager",
+    "name": "AD Manager",
+    "purpose": "Juniper network password resets.",
+    "url": null,
+    "topicId": "password",
+    "keywords": [
+      "ad manager"
+    ],
+    "trainingSource": "Recording 3, 31:55\u201332:29; Recording 1, 0:14\u20130:54"
+  },
+  {
+    "id": "groups",
+    "name": "My Groups",
+    "purpose": "Contractor VPN roles and group membership.",
+    "url": null,
+    "topicId": "vpn",
+    "keywords": [
+      "my groups"
+    ],
+    "trainingSource": "Recording 4, 1:30\u20133:45; Recording 5, 0:45\u20132:49"
+  },
+  {
+    "id": "ticket",
+    "name": "Ticketing portal",
+    "purpose": "P3 and P4 incident creation.",
+    "url": null,
+    "topicId": "ticket",
+    "keywords": [
+      "ticketing portal"
+    ],
+    "trainingSource": "Recording 2, 0:15\u20131:09"
+  },
+  {
+    "id": "zscaler",
+    "name": "Zscaler",
+    "purpose": "Employee site-access checks.",
+    "url": null,
+    "topicId": "zscaler",
+    "keywords": [
+      "zscaler"
+    ],
+    "trainingSource": "Recording 5, 2:53\u20133:15"
+  }
 ]

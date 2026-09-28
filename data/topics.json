@@ -1,12 +1,101 @@
 [
- {"id":"password","name":"Password Reset","description":"Network and local passwords","icon":"key","question":"Password reset","procedures":["ad-password","mac-key","password-wait"]},
- {"id":"laptop","name":"Laptop & Device","description":"Login and device recovery","icon":"laptop","question":"Laptop and device login help","procedures":["ad-password","mac-key","bitlocker"]},
- {"id":"vpn","name":"Access & VPN","description":"Contractor roles and site access","icon":"network","question":"How do I get VPN access?","procedures":["vpn","zscaler"]},
- {"id":"mobile","name":"Mobile Devices","description":"iPhone passcodes and compliance","icon":"phone","question":"User's iPhone is locked","procedures":["iphone"]},
- {"id":"ticket","name":"ServiceNow","description":"Incident creation and follow-up","icon":"ticket","question":"How do I create a P3 ticket?","procedures":["ticket"]},
- {"id":"mfa","name":"Security & MFA","description":"Verification and authentication","icon":"shield","question":"How do I reset MFA?","procedures":["mfa","verification"]},
- {"id":"bitlocker","name":"BitLocker Recovery","description":"Find the recovery-key platform","icon":"lock","question":"Where do I get the BitLocker recovery key?","procedures":["bitlocker"]},
- {"id":"intune","name":"Intune","description":"Device and mobile support","icon":"monitor","question":"What can I do in Intune?","procedures":["bitlocker","iphone"]},
- {"id":"zscaler","name":"Zscaler","description":"Employee site connectivity","icon":"globe","question":"Employee cannot access sites using Zscaler","procedures":["zscaler"]},
- {"id":"groups","name":"My Groups","description":"Standard and dedicated VPN roles","icon":"users","question":"How do I use My Groups for VPN roles?","procedures":["vpn"]}
+  {
+    "id": "verification",
+    "name": "User Validation",
+    "description": "Identity checks for calls and chats",
+    "icon": "shield",
+    "procedures": [
+      "verification"
+    ]
+  },
+  {
+    "id": "password",
+    "name": "AD Password Reset",
+    "description": "AD Manager and the 24-hour change wait",
+    "icon": "key",
+    "procedures": [
+      "ad-password",
+      "password-wait",
+      "verification"
+    ]
+  },
+  {
+    "id": "mac",
+    "name": "Mac Password & Recovery",
+    "description": "Local passwords and personal recovery keys",
+    "icon": "laptop",
+    "procedures": [
+      "mac-password",
+      "mac-key",
+      "verification"
+    ]
+  },
+  {
+    "id": "bitlocker",
+    "name": "BitLocker Recovery",
+    "description": "Intune, recovery prompts, and known gaps",
+    "icon": "lock",
+    "procedures": [
+      "bitlocker",
+      "bitlocker-prompts",
+      "verification"
+    ]
+  },
+  {
+    "id": "mfa",
+    "name": "MFA & Authentication",
+    "description": "Azure registration, sessions, and setup issues",
+    "icon": "shield",
+    "procedures": [
+      "mfa",
+      "mfa-admin",
+      "verification"
+    ]
+  },
+  {
+    "id": "mobile",
+    "name": "iPhone Passcode & Compliance",
+    "description": "Remove passcode and check Intune compliance",
+    "icon": "phone",
+    "procedures": [
+      "iphone"
+    ]
+  },
+  {
+    "id": "vpn",
+    "name": "My Groups & VPN Roles",
+    "description": "Contractor roles and group membership",
+    "icon": "users",
+    "procedures": [
+      "vpn",
+      "groups-membership"
+    ]
+  },
+  {
+    "id": "zscaler",
+    "name": "Zscaler Site Access",
+    "description": "Employee connectivity and site access checks",
+    "icon": "globe",
+    "procedures": [
+      "zscaler"
+    ]
+  },
+  {
+    "id": "ticket",
+    "name": "P3 / P4 Incidents",
+    "description": "Caller details and incident creation",
+    "icon": "ticket",
+    "procedures": [
+      "ticket"
+    ]
+  },
+  {
+    "id": "mobile-mail",
+    "name": "Mobile Teams & Outlook",
+    "description": "Contractor mobile-access group mentioned in training",
+    "icon": "network",
+    "procedures": [
+      "mobile-mail"
+    ]
+  }
 ]

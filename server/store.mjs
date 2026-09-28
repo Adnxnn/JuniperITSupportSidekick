@@ -13,14 +13,16 @@ CREATE TABLE IF NOT EXISTS transcript_chunks(id TEXT PRIMARY KEY, source TEXT NO
 CREATE TABLE IF NOT EXISTS conversations(id TEXT PRIMARY KEY, created_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS turns(id INTEGER PRIMARY KEY AUTOINCREMENT, conversation_id TEXT NOT NULL, role TEXT NOT NULL, message TEXT NOT NULL, procedure_id TEXT, created_at TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS turns_conversation ON turns(conversation_id,id);`);
-for(const p of seed){db.prepare('INSERT OR IGNORE INTO procedures(id,payload,searchable) VALUES(?,?,?)').run(p.id,JSON.stringify(p),[p.title,p.platform,...p.aliases].join(' ').toLowerCase());}
-export const allProcedures=()=>db.prepare('SELECT payload FROM procedures').all().map(r=>JSON.parse(r.payload));
-export const getProcedure=id=>{const r=db.prepare('SELECT payload FROM procedures WHERE id=?').get(id);return r?JSON.parse(r.payload):null;};
-export const getTopics=()=>topics.filter(t=>t.procedures.some(id=>!!getProcedure(id)));
-export const getLinks=()=>links.filter(x=>/^https:\/\//.test(x.url));
+// Reviewed JSON is authoritative on every server start; stale database records never answer questions.
+const reviewed=new Map(seed.map(p=>[p.id,p]));
+export const allProcedures=()=>[...reviewed.values()];
+export const getProcedure=id=>reviewed.get(id)||null;
+export const getTopics=()=>topics.filter(t=>t.procedures.some(id=>reviewed.has(id))).map(t=>({...t,searchTerms:t.procedures.flatMap(id=>{const p=reviewed.get(id);return p?[p.title,p.platform,...p.aliases,...p.steps,...p.notes]:[]})}));
+export const getLinks=()=>links.filter(x=>!x.url||/^https:\/\//.test(x.url));
 export function startConversation(id){db.prepare('INSERT OR IGNORE INTO conversations(id,created_at) VALUES(?,?)').run(id,new Date().toISOString());}
 export function addTurn(id,role,message,procedureId=null){db.prepare('INSERT INTO turns(conversation_id,role,message,procedure_id,created_at) VALUES(?,?,?,?,?)').run(id,role,message,procedureId,new Date().toISOString());}
 export function history(id){return db.prepare('SELECT role,message,procedure_id AS procedureId FROM turns WHERE conversation_id=? ORDER BY id DESC LIMIT 12').all(id).reverse();}
 export function clearConversation(id){db.prepare('DELETE FROM turns WHERE conversation_id=?').run(id);db.prepare('DELETE FROM conversations WHERE id=?').run(id);}
 export function ingestChunk(id,source,body){db.prepare('INSERT INTO transcript_chunks(id,source,body,created_at) VALUES(?,?,?,?)').run(id,source,body,new Date().toISOString());}
 export function chunks(){return db.prepare('SELECT id,source,body FROM transcript_chunks').all();}
+

@@ -1,52 +1,60 @@
-# Juniper IT Support Side Kick
+# Juniper IT Support Sidekick
 
-A three-page support workspace for answering agent questions from reviewed training transcripts. The first dataset is based on five partial training excerpts shared in the project conversation. Sameena Fathima is the trainer. No company platform, private credentials, or training transcript upload is required to browse the app.
+A transcript-based support workspace with a notes-first Home page, ten specific training topics, a general AI Assistant, and Quick Links. The HPE/Juniper logo and aqua layout follow the supplied visual reference.
 
 ## Run
 
-Node.js 22.13+ is required.
+Requires Node.js 22.13 or newer.
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:3000. The development server serves the React app and the API together. For production:
+Open http://127.0.0.1:3000. The app and API share one server. For the production build:
 
 ```bash
 npm run build
-npm run start
+npm start
 ```
 
-The production server serves the build, the three deep links, and `/api/assistant`. Set `PORT`, `HOST` and `APP_ORIGIN` if needed for your deployment. Serve over HTTPS in production. No deployment platform is assumed.
+Set `HOST`, `PORT`, and `APP_ORIGIN` for your hosting environment. `APP_ORIGIN` should be the exact HTTPS public origin behind a reverse proxy. Configure `DATABASE_PATH` on persistent storage. There is no deployment provider configured in this repository.
 
-## How answers stay grounded
+## Pages
 
-`data/training.json` contains reviewed, structured procedure records and evidence. The backend stores them in SQLite (`runtime/sidekick.sqlite`) and reads them at request time. It detects the intended topic, asks for clarification when needed, and returns only fields from a reviewed record. Unknown questions receive the defined not-covered response. Transcript citations and trainer wording are kept in the server-side data for auditing, but are not shown in the agent UI. The UI never generates operational steps.
+- Home filters topics and notes without starting a chat.
+- `/topics/:id` shows the relevant reviewed notes, checks, steps, gaps, source excerpts, copy controls, and a compact topic question box.
+- `/assistant` answers across all reviewed procedures and supports clarification choices, follow-ups, copy, retry, and clearing the conversation.
+- `/quick-links` shows tools named in training. Configured Microsoft portals open directly. Tools without supplied organization-specific URLs open their training notes instead.
+- The sidebar opens and closes on desktop and mobile. Desktop preference is saved locally. Mobile navigation also closes after selection, with Escape, or by tapping the backdrop.
 
-Without `OPENAI_API_KEY`, intent selection uses local transcript-grounded matching. With a server-side key in `.env`, the OpenAI Responses API may select one approved procedure ID from the reviewed records. The server constructs the final answer from the reviewed record, never from generated text. `OPENAI_MODEL` can override the model. Keep the key and the database path server-side. The API selects intent only; there is no automatic extraction of new procedures into live answers. No live model test was possible without a key.
+## Transcript knowledge
 
-To ingest a future raw transcript for review:
+See [the transcript review](docs/transcript-review.md) for exact topic/source mappings and interpretation decisions.
+
+`data/training.json` is authoritative reviewed knowledge. Each record includes evidence and recording timestamps. `data/topics.json` maps the records to ten topics. Search terms are derived from those records at runtime. Restart after editing the reviewed files; stale SQLite procedure rows are ignored.
+
+Only the supplied transcript excerpts provide support instructions. The excerpts omit some AD password-reset, local Mac password-reset, BitLocker retrieval, and incident-entry steps. The app states those gaps instead of filling them with generic support knowledge. It distinguishes Mac recovery from BitLocker and employee VPN eligibility from contractor assignment.
+
+Without a key, local intent routing selects reviewed records. Optionally set `OPENAI_API_KEY` and `OPENAI_MODEL` on the server for additional intent selection. The model may only choose a reviewed record ID; it does not generate operational instructions. Topic restrictions apply to both paths. Model outages preserve local routing. Live model selection requires separately configured credentials and was not exercised during this update.
+
+To store another transcript for review:
 
 ```bash
 npm run ingest -- /path/to/recording.txt
 ```
 
-It is stored in the SQLite `transcript_chunks` table and produces an unreviewed receipt in `runtime/`. A reviewer should extract each procedure into `data/training.json`, verify the platform, exact steps, prerequisite, failure handling, and supporting excerpt, then restart the server. New records are loaded into the database without rebuilding the frontend; add a corresponding topic to `data/topics.json` only if a new Home card is wanted. Existing records remain in SQLite; update reviewed records directly in the database or delete the old record before re-seeding from JSON. Never expose unreviewed chunks as a live answer.
-
-Quick Links are in `data/links.json` and are served only from this configuration. The three included destinations are official Microsoft portals named in the supplied excerpts: Teams, Intune, Azure Portal. Company-specific ServiceNow, My Groups, AD Manager and Zscaler links are withheld until their URLs are verified. No AI response creates a link. If a verified organization-specific URL becomes available, add it to the configuration and restart the server.
-
-## Known boundaries
-
-The provided excerpts skip large sections of five recordings. The exact AD Manager reset walkthrough, BitLocker retrieval clicks, ticket portal URL and full incident fields, My Groups URL and exact role spellings, and approved recovery-key delivery channel are absent or unclear. The answer cards explicitly acknowledge these gaps rather than inventing instructions. The supplied material is organization-specific; confirm sensitive workflows with your TL before operational use.
-
-This project is a prototype without app authentication; deploy only behind an organization-approved sign-in/reverse proxy, and review storage and access controls before putting real employee information in chat. Conversations are held on the server and cleared by the Clear button. The current session ownership is process-local, so a server restart invalidates conversation IDs.
+This saves raw chunks in SQLite and an unreviewed receipt in `runtime/`. It does not publish new answers. Review the transcript, add evidence-backed records to `data/training.json`, map them to topics, and restart.
 
 ## Checks
 
 ```bash
 npm test
 npm run build
+npx playwright install chromium
+npm run test:acceptance
 ```
 
-The separate Playwright acceptance script `node tests/acceptance.mjs` can run against a local server on port 3077 when Chromium is available.
+The acceptance runner starts and stops a local server and checks the API plus desktop/mobile browser flows. Set `CHROMIUM_PATH` for an existing Chromium binary, or `TEST_PORT` to override port 3077.
+
+This app has session-scoped conversations but no app sign-in. Configure your deployment's access layer before using it for real employee conversations. Conversation ownership is process-local; a server restart invalidates existing conversation IDs.

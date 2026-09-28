@@ -1,50 +1,38 @@
-import { allProcedures,getProcedure,history } from './store.mjs';
-const unknown=()=>({kind:'unknown',title:'Not covered in the provided training.',message:'The Juniper/HPE-specific procedure for this issue was not found in the available training material. Please check with your TL/team before proceeding.'});
+import {allProcedures,getProcedure,getTopics,history} from './store.mjs';
+export const unknown=()=>({kind:'unknown',title:'Not covered in the provided training.',message:'No procedure for this issue is included in the supplied transcript excerpts.'});
+const words=s=>String(s).toLowerCase().replace(/macbook/g,'mac').replace(/[’']/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+const has=(s,re)=>re.test(s);
+const choice=(label,question)=>({label,question});
 const clarify=(title,options)=>({kind:'clarification',title,options});
-const words=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
-function textMatches(q,term){const a=words(q),b=words(term);return b.length>2&&(a===b||a.includes(` ${b} `)||a.startsWith(`${b} `)||a.endsWith(` ${b}`));}
-const options={
- access:[['Laptop Login','I cannot log in to my laptop'],['VPN','How do I get VPN access?'],['Application','I cannot access a specific application']],
- password:[['Network password','Where do I reset the Juniper network password?'],['Mac password or key','Where do I find the Mac personal recovery key?'],['Phone passcode','My iPhone passcode is locked']],
- laptop:[['Network login','Where do I reset the Juniper network password?'],['Mac recovery','Where do I find the Mac personal recovery key?'],['BitLocker','Where do I find the BitLocker recovery key?']],
- intune:[['BitLocker','Where do I find the BitLocker recovery key?'],['iPhone passcode','My iPhone passcode is locked']]
-};
-function ambiguity(q,context){const s=words(q);
- if(/\b(blue screen|bsod|new laptop|hardware fault)\b/.test(s))return null;
- if(/\b(access|login|log in|sign in|system)\b/.test(s)&&!/\b(vpn|zscaler|iphone|phone|mac|network|juniper password|bitlocker|mfa|azure|authenticator|application|app|specific|laptop)\b/.test(s))return clarify('What is the user trying to access?',options.access);
- if(/\b(laptop|device)\b/.test(s)&&!/\b(iphone|mobile|mac|bitlocker|vpn|zscaler|network|password|reset)\b/.test(s))return clarify('Which device issue is this?',options.laptop);
- if(/\b(intune)\b/.test(s)&&!/\b(bitlocker|phone|iphone|mobile|passcode|compliance)\b/.test(s))return clarify('What do you need to do in Intune?',options.intune);
- if(/\b(password|password reset)\b/.test(s)&&!/\b(ad|network|juniper|mac|phone|iphone|24|twice|changed|change|after|mfa|authenticator)\b/.test(s)&&!context)return clarify('Which password does the user mean?',options.password);
+const procedureChoices=ps=>ps.map(p=>choice(p.title,p.id==='bitlocker-prompts'?'Why does the BitLocker screen appear?':p.aliases[0]||p.title));
+const passwordOptions=[choice('Network password','Juniper network password reset'),choice('Local Mac password','Local Mac password reset'),choice('iPhone passcode','iPhone passcode locked')];
+const unsupported=s=>/\b(android|samsung|linux|printer|printing|wifi|wi fi|outlook crash|teams crash|blue screen|bsod|hardware fault|malware|virus|bios|reinstall windows|delete account)\b/.test(s);
+const followup=s=>/^(what (if|happens if) (it|the key) (is |isnt |is not |doesnt |does not )?(missing|unknown|there|found|work|working)|what if i (cannot|cant|do not|dont) find (it|the key)|it (is |isnt |is not |still )?(missing|unknown|not there|not found|not working)|still (not working|cannot access|cant access)|what (next|should i do next)|next steps|what (are the steps|should i (do|check))|steps|where (is it|do i find it)|which (tool|portal)( should i use)?)$/.test(s);
+function select(s){
+ if(/\b(verify|validation|validate|identity|cybersecurity questions|manager s name|managers name|employee id|work location)\b/.test(s))return 'verification';
+ if(/\b(admin portal access|admin access|access to (the )?(azure|admin) portal)\b/.test(s))return 'mfa-admin';
+ if(/\b(password)\b/.test(s)&&/\b(24|twice|next day|after reset|after a reset|after resetting)\b/.test(s)||/^(24 hours|password policy|change after reset)$/.test(s))return 'password-wait';
+ if(/\b(bitlocker|bit locker)\b/.test(s))return /\b(why|trigger|cause|scenario|after update|after an update|motherboard|incorrect attempts)\b/.test(s)?'bitlocker-prompts':'bitlocker';
+ if(/\b(mac|local mac)\b/.test(s)&&/\b(password|login|log in)\b/.test(s)&&!/\b(key|recovery|disk|encryption)\b/.test(s))return 'mac-password';
+ if(/\b(mac key|mac recovery|personal recovery|disk encryption|inventory recovery)\b/.test(s))return 'mac-key';
+ if(/\b(teams|outlook)\b/.test(s)&&/\b(phone|mobile|contractor|intune)\b/.test(s))return 'mobile-mail';
+ if(/\b(ad manager|ad password|network password|juniper password|active directory)\b/.test(s))return 'ad-password';
+ if(/\b(mfa|authenticator|authentication methods|passkey|re register|revoke)\b/.test(s))return 'mfa';
+ if(/\b(iphone|ios|passcode compliance|device compliance|remove passcode)\b/.test(s))return 'iphone';
+ if(/\b(application groups|distribution list|email alias|e mail alias|join group|group membership)\b/.test(s)&&!/\b(vpn|dedicated)\b/.test(s))return 'groups-membership';
+ if(/\b(zscaler)\b/.test(s)||/\b(employee|regular worker)\b/.test(s)&&/\b(site|sites)\b/.test(s))return 'zscaler';
+ if(/\b(vpn|dedicated role|standard role|external eud|juniper eud)\b/.test(s))return 'vpn';
+ if(/\b(p3|p4|ticket|incident|servicenow|service now)\b/.test(s))return 'ticket';
  return null;
 }
-function rank(q,p){const s=words(q);let score=0;for(const a of p.aliases)if(textMatches(s,a))score+=a.split(' ').length>1?5:3;
- const queryWords=s.split(' ').filter(x=>x.length>=4&&!['what','where','which','user','help','with','should','does','from','have','this','that','there','cannot','unable'].includes(x));
- for(const w of queryWords)if(words([p.title,p.platform,...p.aliases].join(' ')).split(' ').includes(w))score+=1;
- return score;
+function present(p,question){
+ const s=words(question);
+ if(p.id==='bitlocker'&&/\b(missing|unknown|not there|no key|not find|cannot find|cant find|not found)\b/.test(s))return {...unknown(),title:'Missing BitLocker key: procedure not supplied.'};
+ if(p.id==='iphone'&&/\b(no option|not available|unavailable|missing|cannot find|cant find)\b/.test(s))return {...unknown(),title:'Missing Remove passcode action: procedure not supplied.'};
+ const r={kind:'answer',procedureId:p.id,title:p.title,source:p.source,evidence:p.evidence,coverage:p.coverage,platform:p.platform,prerequisites:p.prerequisites,verification:p.verification,steps:p.steps,failureHandling:p.failureHandling,nextAction:p.nextAction,notes:p.notes};
+ if(p.id==='mac-key'&&/\b(missing|unknown|not there|no key|not find|cannot find|cant find|not found)\b/.test(s))return {...r,steps:[]};
+ return r;
 }
-function choose(q,previous){const s=words(q),last=previous?.procedureId;
- if(/\b(blue screen|bsod|new laptop)\b/.test(s))return null;
- if(last&&/\b(if|what|not|missing|find|still|next|there|again|doesn t|isn t)\b/.test(s)&&s.split(' ').length<=14){
-  if(!/\b(vpn|bitlocker|mac|mfa|intune|ticket|phone|password)\b/.test(s))return getProcedure(last);
-  if(/\b(bitlocker|key)\b/.test(s)&&last==='bitlocker')return getProcedure(last);
- }
- if(/\b(24|twice|next day|change after|changed after)\b/.test(s))return getProcedure('password-wait');
- if(/\b(teams|outlook)\b/.test(s)&&/\b(phone|mobile|contractor)\b/.test(s))return getProcedure('mobile-mail');
- if(/\b(p3|p4|ticket|incident|servicenow|service now)\b/.test(s))return getProcedure('ticket');
- if(/\b(bitlocker|bit locker)\b/.test(s))return getProcedure('bitlocker');
- if(/\b(iphone|phone passcode|phone password|mobile phone|ios)\b/.test(s))return getProcedure('iphone');
- if(/\b(mac|filevault|personal recovery)\b/.test(s))return getProcedure('mac-key');
- if(/\b(mfa|authenticator|authentication|passkey|re register|revoke)\b/.test(s))return getProcedure('mfa');
- if(/\b(vpn|my groups|contractor|dedicated role|standard role)\b/.test(s))return getProcedure('vpn');
- if(/\b(zscaler)\b/.test(s))return getProcedure('zscaler');
- if(/\b(verify|validation|identity|cybersecurity questions)\b/.test(s))return getProcedure('verification');
- if(/\b(ad manager|ad password|network password|juniper password|forgot password|reset password)\b/.test(s))return getProcedure('ad-password');
- const scored=allProcedures().map(p=>[p,rank(q,p)]).sort((a,b)=>b[1]-a[1]);return scored[0]?.[1]>=4?scored[0][0]:null;
-}
-function present(p,q){if(!p)return unknown();let r={kind:'answer',title:p.title,platform:p.platform,prerequisites:p.prerequisites,verification:p.verification,steps:p.steps,failureHandling:p.failureHandling,nextAction:p.nextAction,notes:p.notes};
- if(p.id==='bitlocker'&&/\b(not find|missing|unknown|not there|no key)\b/.test(words(q)))return {...unknown(),title:'BitLocker key not found in the supplied procedure'};
- if(p.id==='mac-key'&&/\b(not find|missing|unknown|not there|no key)\b/.test(words(q)))r={...r,steps:[],failureHandling:p.failureHandling};
- return r;}
 async function modelSelection(question,previous,candidates){if(!process.env.OPENAI_API_KEY)return null;
  const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),12000);
  try{
@@ -53,15 +41,37 @@ async function modelSelection(question,previous,candidates){if(!process.env.OPEN
  return id==='UNKNOWN'?'UNKNOWN':id==='CLARIFY'?'CLARIFY':candidates.some(p=>p.id===id)?id:'UNKNOWN';
  }finally{clearTimeout(timeout)}
 }
-export async function answer(question,conversationId){const previous=history(conversationId).filter(h=>h.role==='assistant').at(-1);let a=ambiguity(question,previous?.procedureId);
- if(a)return a;
- const p=choose(question,previous);
- if(!process.env.OPENAI_API_KEY)return present(p,question);
- const all=allProcedures();const result=await modelSelection(question,previous,all);
- if(result==='CLARIFY')return clarify('What kind of issue is this?',options.access);
- if(result==='UNKNOWN')return unknown();
- const selected=getProcedure(result);if(!selected)return unknown();
- // Grounding: the model selects an existing reviewed record; it never writes answer fields.
- return present(selected,question);
+export async function answer(question,conversationId,topicId){
+ const topic=topicId?getTopics().find(t=>t.id===topicId):null;
+ if(topicId&&!topic)return unknown();
+ const allowed=allProcedures().filter(p=>!topic||topic.procedures.includes(p.id));
+ const allowedId=id=>allowed.some(p=>p.id===id);
+ const notCovered=()=>topic?{kind:'unknown',title:'Not covered in this topic’s training.',message:`No matching procedure was found in the ${topic.name} notes. Use another topic or AI Assistant to search all training.`}:unknown();
+ const previous=history(conversationId).filter(h=>h.role==='assistant').at(-1);
+ const last=previous&&allowedId(previous.procedureId)?getProcedure(previous.procedureId):null;
+ const s=words(question);
+ // Unsupported issues never inherit previous instructions or reach model selection.
+ if(unsupported(s))return notCovered();
+ if(followup(s)){
+  if(previous&&!last)return notCovered();
+  if(last)return present(last,question);
+  if(topic)return allowed.length===1?present(allowed[0],question):clarify('Which part of this topic do you need?',procedureChoices(allowed));
+  return clarify('Which training topic do you need?',procedureChoices(allowed));
+ }
+ let id=select(s);
+ if(id==='vpn'&&/\b(employee|regular worker)\b/.test(s)&&!/\b(contractor|contingent)\b/.test(s))return allowedId('vpn')?{...present(getProcedure('vpn'),question),steps:[],failureHandling:[],nextAction:[],notes:['The trainer explicitly limits ITIO standard VPN-role assignment to contractors. ITIO must not assign these contractor roles to direct Juniper employees.']}:notCovered();
+ const narrowed=options=>options.filter(o=>{const i=select(words(o.question));return i&&allowedId(i)});
+ if(id==='vpn'&&!/\b(contractor|contingent|dedicated|standard|external eud|juniper eud)\b/.test(s))return allowedId('vpn')?clarify('Is the user a contractor or a direct Juniper employee?',[choice('Contractor','Contractor VPN access'),choice('Juniper employee','Juniper employee VPN roles')]):notCovered();
+ if(id)return allowedId(id)?present(getProcedure(id),question):notCovered();
+ if(/\b(my groups)\b/.test(s)){const ps=allowed.filter(p=>['vpn','groups-membership'].includes(p.id));return ps.length?clarify('What do you need in My Groups?',procedureChoices(ps)):notCovered()}
+ if(/\b(intune)\b/.test(s)){const ps=allowed.filter(p=>['bitlocker','iphone','mobile-mail'].includes(p.id));return ps.length?clarify('What do you need in Intune?',procedureChoices(ps)):notCovered()}
+ if(/\b(phone|mobile)\b/.test(s)&&/\b(password|passcode|locked|login|log in)\b/.test(s)){const opts=narrowed([choice('Juniper network password','Juniper network password reset'),choice('iPhone screen passcode','iPhone passcode locked')]);return opts.length?clarify('Is this the Juniper password or the iPhone screen passcode?',opts):notCovered()}
+ if(/\b(password|forgot password|reset password)\b/.test(s)){const opts=narrowed(passwordOptions);return opts.length?clarify('Which password does the user mean?',opts):notCovered()}
+ if(/\b(recovery key)\b/.test(s)){const ps=allowed.filter(p=>['mac-key','bitlocker'].includes(p.id));return ps.length?clarify('Which recovery key is needed?',procedureChoices(ps)):notCovered()}
+ if(/\b(sites?|websites?)\b/.test(s)&&/\b(access|open|connect)\b/.test(s)){const opts=narrowed([choice('Contractor','Contractor VPN access'),choice('Juniper employee','Employee cannot access a site')]);return opts.length?clarify('Is the user a contractor or a direct Juniper employee?',opts):notCovered()}
+ if(/\b(login|log in|sign in|access|system|laptop)\b/.test(s)&&!/\b(application|specific app|new laptop)\b/.test(s)){const opts=narrowed([choice('Network password','Juniper network password reset'),choice('Mac password','Local Mac password reset'),choice('VPN','Contractor VPN access')]);return opts.length?clarify('What is the user trying to access?',opts):notCovered()}
+ if(process.env.OPENAI_API_KEY){
+  try{const result=await modelSelection(question,last?{procedureId:last.id}:null,allowed);if(result==='CLARIFY')return clarify('Which training procedure do you need?',procedureChoices(allowed));const p=allowed.find(p=>p.id===result);if(p)return present(p,question)}catch{ /* Deterministic reviewed search remains usable during model outages. */ }
+ }
+ return notCovered();
 }
-export {unknown};
