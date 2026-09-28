@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" role="img" aria-labelledby="title">
+  <title id="title">HPE | Juniper Networks</title>
+  <g fill="#080c13" font-family="Arial,Helvetica,sans-serif">
+    <text x="3" y="58" font-size="64" font-weight="700" letter-spacing="-6">HP</text>
+    <path fill="#00ad86" d="M121 12h43v9h-34v13h31v9h-31v14h34v9h-43z"/>
+    <text x="185" y="54" font-family="Helvetica Neue,Arial,sans-serif" font-size="50" font-weight="200" letter-spacing="-4">juniper</text>
+    <text x="267" y="72" font-size="15" font-weight="400" letter-spacing="2">NETWORKS</text>
+  </g>
+</svg>

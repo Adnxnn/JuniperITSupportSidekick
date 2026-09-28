@@ -41,21 +41,21 @@ test('MFA on an iPhone does not trigger screen passcode removal',async()=>{asser
 test('device compliance maps to the taught iPhone checks',async()=>{assert.equal((await answer('Where do I check device compliance?',randomUUID())).procedureId,'iphone')});
 test('unspecified Juniper site access asks employment type',async()=>{const r=await answer('User cannot access Juniper sites',randomUUID());assert.equal(r.kind,'clarification');assert.ok(r.options.some(o=>o.label==='Juniper employee'))});
 const newScenarios=[
- ['What is the Software Center procedure?','software-center-intro','software-self-service'],
- ['What are the self-service portal steps?','self-service-intro','software-self-service'],
- ['How do I use the networking template?','network-template-intro','software-self-service'],
- ['How do we choose the assignment group from a configuration item?','assignment-routing','assignment-groups'],
- ['Which group handles a networking related issue?','network-assignment','assignment-groups'],
- ['Route SAP Basis production issue','sap-basis','assignment-groups'],
- ['User cannot sign in to Concur','concur-support','assignment-groups'],
- ['Route enterprise data platform BI issue','adp-bi','assignment-groups'],
- ['SAP Security application access issue','sap-security','assignment-groups'],
- ['Which GTM Ops team handles this issue?','gtm-ops','assignment-groups'],
- ['SAP quotation management assignment group','sap-quotation','assignment-groups'],
- ['Demand supply management support group','demand-supply','assignment-groups'],
- ['Intune iOS enrollment with HPE account','ios-enrollment-recap','ios-zoom-recap'],
- ['Zoom licence expiry and Zoom Global Service','zoom-recap','ios-zoom-recap']
+ ['What is the Software Center procedure?','software-center-intro','software-center'],
+ ['What are the self-service portal steps?','self-service-intro','self-service'],
+ ['How do I use the networking template?','network-template-intro','network-template'],
+ ['How do we choose the assignment group from a configuration item?','assignment-routing','assignment-routing'],
+ ['Which group handles a networking related issue?','network-assignment','network-assignment'],
+ ['Route SAP Basis production issue','sap-basis','sap-basis'],
+ ['User cannot sign in to Concur','concur-support','concur'],
+ ['Route enterprise data platform BI issue','adp-bi','adp-bi'],
+ ['SAP Security application access issue','sap-security','sap-security'],
+ ['Which GTM Ops team handles this issue?','gtm-ops','gtm-ops'],
+ ['SAP quotation management assignment group','sap-quotation','sap-quotation'],
+ ['Demand supply management support group','demand-supply','demand-supply'],
+ ['Intune iOS enrollment with HPE account','ios-enrollment-recap','ios-enrollment'],
+ ['Zoom licence expiry and Zoom Global Service','zoom-recap','zoom'],
 ];
 for(const [question,id,topic] of newScenarios)test('new excerpt: '+id,async()=>{const result=await answer(question,randomUUID(),topic);assert.equal(result.procedureId,id);assert.match(result.source,/New training excerpt/)});
-test('topic questions cannot read a routing answer from another topic',async()=>{const result=await answer('Which group handles Concur sign-in?',randomUUID(),'software-self-service');assert.equal(result.kind,'unknown')});
-test('the excerpt does not provide Software Center installation steps',async()=>{const result=await answer('How do I install from Software Center?',randomUUID(),'software-self-service');assert.deepEqual(result.steps,[]);assert.match(result.notes.join(' '),/no installation/)});
+test('topic questions cannot read a routing answer from another topic',async()=>{const result=await answer('Which group handles Concur sign-in?',randomUUID(),'software-center');assert.equal(result.kind,'unknown')});
+test('the excerpt does not provide Software Center installation steps',async()=>{const result=await answer('How do I install from Software Center?',randomUUID(),'software-center');assert.deepEqual(result.steps,[]);assert.match(result.notes.join(' '),/no installation/)});

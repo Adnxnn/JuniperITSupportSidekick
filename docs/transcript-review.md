@@ -14,9 +14,11 @@ Reviewed sources: the supplied `Pasted markdown.md`, containing excerpts from Re
 | Zscaler Site Access | Employee connection and site-access checks | Recording 5, 2:53–3:15 |
 | P3 / P4 Incidents | Incident entry point, caller/user ID and category | Recording 2, 0:15–1:09 |
 | Mobile Teams & Outlook | Contractor mobile group mention | Recording 5, 4:08–4:26 |
-| Software & Self-Service | Software Center, self-service portal, and networking template introduction | New training excerpt, 1:53–2:05 |
-| Ticket Assignment Groups | CI/global-search routing; networking, SAP Basis, Concur, ADP BI, SAP Security, GTM Ops, SAP quotation, demand/supply | New training excerpt, 1:42:34–1:46:34 |
-| iOS & Zoom Recap | HPE account/iOS enrollment, Zoom licence/expiry and Zoom Global Service group mentions | New training excerpt, 0:31–0:50 |
+| Software Center; Self-service Portal; Networking Template | Each is a distinct session-introduction card; no demonstration supplied | New training excerpt, 1:53–2:05 |
+| Ticket Assignment Routing; Networking Assignment | CI/global-search routing and networking team mention | New training excerpt, 1:42:34–1:46:34 |
+| SAP Basis Support; Concur Support; Enterprise Data Platform / BI; SAP Security Support | Each application has its own routing card and evidence | New training excerpt, 1:43:02–1:45:03 |
+| GTM Ops; SAP Quotation Management; Demand & Supply Support | Distinct application-team routing cards | New training excerpt, 1:45:07–1:46:34 |
+| Intune iOS Enrollment; Zoom License & Group | Separate HPE/iOS and Zoom recap cards | New training excerpt, 0:31–0:50 |
 
 ## Interpretation decisions
 

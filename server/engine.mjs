@@ -55,14 +55,15 @@ async function modelSelection(question,previous,candidates){if(!process.env.OPEN
  return id==='UNKNOWN'?'UNKNOWN':id==='CLARIFY'?'CLARIFY':candidates.some(p=>p.id===id)?id:'UNKNOWN';
  }finally{clearTimeout(timeout)}
 }
-export async function answer(question,conversationId,topicId){
+export async function answer(question,conversationId,topicId,previousProcedureId=null){
  const topic=topicId?getTopics().find(t=>t.id===topicId):null;
  if(topicId&&!topic)return unknown();
  const allowed=allProcedures().filter(p=>!topic||topic.procedures.includes(p.id));
  const allowedId=id=>allowed.some(p=>p.id===id);
  const notCovered=()=>topic?{kind:'unknown',title:'Not covered in this topic’s training.',message:`No matching procedure was found in the ${topic.name} notes. Try a question about this topic's training.`}:unknown();
  const previous=history(conversationId).filter(h=>h.role==='assistant').at(-1);
- const last=previous&&allowedId(previous.procedureId)?getProcedure(previous.procedureId):null;
+ const lastId=previous?.procedureId||previousProcedureId;
+ const last=lastId&&allowedId(lastId)?getProcedure(lastId):null;
  const s=words(question);
  // Unsupported issues never inherit previous instructions or reach model selection.
  if(unsupported(s))return notCovered();

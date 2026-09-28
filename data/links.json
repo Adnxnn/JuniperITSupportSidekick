@@ -11,7 +11,7 @@
       "recovery"
     ],
     "verifiedSource": "https://learn.microsoft.com/en-us/intune/fundamentals/account-sign-up",
-    "trainingSource": "Recording 3, 1:31\u20131:38 and 26:31\u201330:17"
+    "trainingSource": "Recording 3, 1:31–1:38 and 26:31–30:17"
   },
   {
     "id": "azure",
@@ -25,7 +25,7 @@
       "authentication"
     ],
     "verifiedSource": "https://learn.microsoft.com/en-us/azure/azure-portal/azure-portal-overview",
-    "trainingSource": "Recording 3, 19:48\u201320:33"
+    "trainingSource": "Recording 3, 19:48–20:33"
   },
   {
     "id": "teams",
@@ -39,7 +39,7 @@
       "contractor"
     ],
     "verifiedSource": "https://support.microsoft.com/en-us/teams/meetings/use-microsoft-teams-on-the-web",
-    "trainingSource": "Recording 5, 4:08\u20134:26 (application mentioned; purpose is a link description, not a support procedure)"
+    "trainingSource": "Recording 5, 4:08–4:26 (application mentioned; purpose is a link description, not a support procedure)"
   },
   {
     "id": "ad-manager",
@@ -50,7 +50,7 @@
     "keywords": [
       "ad manager"
     ],
-    "trainingSource": "Recording 3, 31:55\u201332:29; Recording 1, 0:14\u20130:54"
+    "trainingSource": "Recording 3, 31:55–32:29; Recording 1, 0:14–0:54"
   },
   {
     "id": "groups",
@@ -61,7 +61,7 @@
     "keywords": [
       "my groups"
     ],
-    "trainingSource": "Recording 4, 1:30\u20133:45; Recording 5, 0:45\u20132:49"
+    "trainingSource": "Recording 4, 1:30–3:45; Recording 5, 0:45–2:49"
   },
   {
     "id": "ticket",
@@ -72,7 +72,7 @@
     "keywords": [
       "ticketing portal"
     ],
-    "trainingSource": "Recording 2, 0:15\u20131:09"
+    "trainingSource": "Recording 2, 0:15–1:09"
   },
   {
     "id": "zscaler",
@@ -83,6 +83,53 @@
     "keywords": [
       "zscaler"
     ],
-    "trainingSource": "Recording 5, 2:53\u20133:15"
+    "trainingSource": "Recording 5, 2:53–3:15"
+  },
+  {
+    "id": "software-center",
+    "name": "Software Center",
+    "purpose": "Software access tool mentioned in training.",
+    "url": null,
+    "topicId": "software-center",
+    "keywords": [
+      "software center"
+    ],
+    "trainingSource": "Additional training excerpt, 1:53–2:05; 1:43:34–1:46:34"
+  },
+  {
+    "id": "self-service",
+    "name": "Self-service portal",
+    "purpose": "Self-service tool mentioned in training.",
+    "url": null,
+    "topicId": "self-service",
+    "keywords": [
+      "self service"
+    ],
+    "trainingSource": "Additional training excerpt, 1:53–2:05; 1:43:34–1:46:34"
+  },
+  {
+    "id": "global-search",
+    "name": "Global search / configuration item",
+    "purpose": "Find the support assignment group from the CI.",
+    "url": null,
+    "topicId": "assignment-routing",
+    "keywords": [
+      "global search",
+      "configuration item",
+      "ci"
+    ],
+    "trainingSource": "Additional training excerpt, 1:53–2:05; 1:43:34–1:46:34"
+  },
+  {
+    "id": "concur",
+    "name": "Concur support portal",
+    "purpose": "Concur application and portal access issues.",
+    "url": null,
+    "topicId": "concur",
+    "keywords": [
+      "concur",
+      "conquer"
+    ],
+    "trainingSource": "Additional training excerpt, 1:53–2:05; 1:43:34–1:46:34"
   }
 ]

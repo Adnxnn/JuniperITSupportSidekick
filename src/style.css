@@ -11,3 +11,17 @@
 .note-title{display:flex;align-items:start;justify-content:space-between;gap:15px}.note-title .text-button{flex:none}.topic-asked{font-size:14px;color:#325973;background:#e3f4f7;padding:12px 15px;border-radius:12px}.missing-url{font-size:12px;color:#667f94;line-height:1.6;margin-bottom:15px}.mobile-nav-backdrop{display:none}@media(max-width:600px){.mobile-nav-backdrop{display:block;position:fixed;inset:74px 0 0;border:0;background:#08283544;z-index:19}.note-title{flex-direction:column;gap:0;margin-bottom:15px}.note-title h2{margin-bottom:10px}}
 /* Collapsing a focused navigation link must not scroll the sidebar internally. */
 .sidebar{overflow:clip}.sidebar-toggle svg{flex:none}
+
+/* Keep the aqua palette and reduce the decorative overlays. The header mark is
+   vector artwork, so it stays sharp on high-density screens. */
+.shell{background:#f5fbfc}
+.topbar{background:linear-gradient(100deg,#fff 0%,#eafbf9 58%,#bceef1 100%)}
+.topbar:after,.sidebar:after,.hero:after{display:none}
+.sidebar{background:linear-gradient(180deg,#f7fcfc,#e2f7f5)}
+.brand-reference{width:360px;height:80px}
+.brand-reference img{position:static;display:block;width:360px;height:80px;max-width:100%}
+.topics{grid-template-columns:repeat(4,minmax(0,1fr))}
+.topic,.link-card,.training-note,.answer-card{box-shadow:0 2px 10px #116d800a}
+@media(max-width:1200px){.topics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:800px){.topics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.brand-reference{width:260px;height:64px}.brand-reference img{width:260px;height:auto}}

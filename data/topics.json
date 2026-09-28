@@ -99,40 +99,128 @@
     ]
   },
   {
-    "id": "software-self-service",
-    "name": "Software & Self-Service",
-    "description": "Software Center, self-service portal, and networking template",
+    "id": "software-center",
+    "name": "Software Center",
+    "description": "Mentioned as a session topic; demonstration absent",
     "icon": "monitor",
     "procedures": [
-      "software-center-intro",
-      "self-service-intro",
+      "software-center-intro"
+    ]
+  },
+  {
+    "id": "self-service",
+    "name": "Self-service Portal",
+    "description": "Session introduction and known training gap",
+    "icon": "monitor",
+    "procedures": [
+      "self-service-intro"
+    ]
+  },
+  {
+    "id": "network-template",
+    "name": "Networking Template",
+    "description": "Template mentioned in the session introduction",
+    "icon": "network",
+    "procedures": [
       "network-template-intro"
     ]
   },
   {
-    "id": "assignment-groups",
-    "name": "Ticket Assignment Groups",
-    "description": "Match the configuration item to the supporting team",
+    "id": "assignment-routing",
+    "name": "Ticket Assignment Routing",
+    "description": "Use the CI and global search to identify a support team",
     "icon": "ticket",
     "procedures": [
-      "assignment-routing",
-      "network-assignment",
-      "sap-basis",
-      "concur-support",
-      "adp-bi",
-      "sap-security",
-      "gtm-ops",
-      "sap-quotation",
+      "assignment-routing"
+    ]
+  },
+  {
+    "id": "network-assignment",
+    "name": "Networking Assignment",
+    "description": "Networking issues and their support team",
+    "icon": "network",
+    "procedures": [
+      "network-assignment"
+    ]
+  },
+  {
+    "id": "sap-basis",
+    "name": "SAP Basis Support",
+    "description": "Basis production issue routing",
+    "icon": "monitor",
+    "procedures": [
+      "sap-basis"
+    ]
+  },
+  {
+    "id": "concur",
+    "name": "Concur Support",
+    "description": "Application and portal access issue routing",
+    "icon": "monitor",
+    "procedures": [
+      "concur-support"
+    ]
+  },
+  {
+    "id": "adp-bi",
+    "name": "Enterprise Data Platform / BI",
+    "description": "BI issue routing based on the configuration item",
+    "icon": "monitor",
+    "procedures": [
+      "adp-bi"
+    ]
+  },
+  {
+    "id": "sap-security",
+    "name": "SAP Security Support",
+    "description": "Security and application access issue routing",
+    "icon": "shield",
+    "procedures": [
+      "sap-security"
+    ]
+  },
+  {
+    "id": "gtm-ops",
+    "name": "GTM Ops",
+    "description": "Check issue type and CI for the right application team",
+    "icon": "ticket",
+    "procedures": [
+      "gtm-ops"
+    ]
+  },
+  {
+    "id": "sap-quotation",
+    "name": "SAP Quotation Management",
+    "description": "Check the CI and global search for assignment",
+    "icon": "ticket",
+    "procedures": [
+      "sap-quotation"
+    ]
+  },
+  {
+    "id": "demand-supply",
+    "name": "Demand & Supply Support",
+    "description": "Check the CI and global search for assignment",
+    "icon": "ticket",
+    "procedures": [
       "demand-supply"
     ]
   },
   {
-    "id": "ios-zoom-recap",
-    "name": "iOS & Zoom Recap",
-    "description": "Enrollment, HPE account, Zoom licence, and group mentions",
+    "id": "ios-enrollment",
+    "name": "Intune iOS Enrollment",
+    "description": "HPE account recap; detailed steps not supplied",
     "icon": "phone",
     "procedures": [
-      "ios-enrollment-recap",
+      "ios-enrollment-recap"
+    ]
+  },
+  {
+    "id": "zoom",
+    "name": "Zoom License & Group",
+    "description": "Expiry and Zoom Global Service group recap",
+    "icon": "monitor",
+    "procedures": [
       "zoom-recap"
     ]
   }

@@ -5,8 +5,10 @@ const root=new URL('../',import.meta.url);
 const seed=JSON.parse(readFileSync(new URL('../data/training.json',import.meta.url)));
 const topics=JSON.parse(readFileSync(new URL('../data/topics.json',import.meta.url)));
 const links=JSON.parse(readFileSync(new URL('../data/links.json',import.meta.url)));
-const location=resolve(process.env.DATABASE_PATH||'./runtime/sidekick.sqlite');
-mkdirSync(dirname(location),{recursive:true});
+// Vercel functions have no durable writable project directory. Reviewed knowledge
+// stays in the bundled JSON; transient chat turns live in memory per instance.
+const location=process.env.VERCEL?':memory:':resolve(process.env.DATABASE_PATH||'./runtime/sidekick.sqlite');
+if(location!==':memory:')mkdirSync(dirname(location),{recursive:true});
 export const db=new DatabaseSync(location);
 db.exec(`CREATE TABLE IF NOT EXISTS procedures(id TEXT PRIMARY KEY, payload TEXT NOT NULL, searchable TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS transcript_chunks(id TEXT PRIMARY KEY, source TEXT NOT NULL, body TEXT NOT NULL, created_at TEXT NOT NULL);
@@ -25,4 +27,3 @@ export function history(id){return db.prepare('SELECT role,message,procedure_id 
 export function clearConversation(id){db.prepare('DELETE FROM turns WHERE conversation_id=?').run(id);db.prepare('DELETE FROM conversations WHERE id=?').run(id);}
 export function ingestChunk(id,source,body){db.prepare('INSERT INTO transcript_chunks(id,source,body,created_at) VALUES(?,?,?,?)').run(id,source,body,new Date().toISOString());}
 export function chunks(){return db.prepare('SELECT id,source,body FROM transcript_chunks').all();}
-
